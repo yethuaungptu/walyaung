@@ -24,8 +24,8 @@ var PropertySchema = new Schema({
     required: true,
   },
   subscription: {
-    type: Number,
-    default: 0,
+    type: String,
+    default: "0 MMK",
   },
   status: {
     type: String,
@@ -43,18 +43,14 @@ var PropertySchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Agents",
   },
-  min_rent: {
-    type: Number,
-    default: 1,
+  gallery: {
+    type: Array,
+    required: true,
   },
-  image: [
-    {
-      url: {
-        type: String,
-        default: null,
-      },
-    },
-  ],
+  profile: {
+    type: String,
+    default: null,
+  },
   area: {
     type: String,
     required: true,
@@ -73,11 +69,11 @@ var PropertySchema = new Schema({
   },
   created: {
     type: Date,
-    default: new Date.now(),
+    default: Date.now(),
   },
   updated: {
     type: Date,
-    default: new Date.now(),
+    default: Date.now(),
   },
 });
 

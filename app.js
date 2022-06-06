@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const mongoose = require("mongoose");
+const session = require("express-session");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -23,6 +24,22 @@ app.use(express.static(path.join(__dirname, "public")));
 mongoose.connect("mongodb://127.0.0.1/shwemyaydb"); // studydb is anyname can insert
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
+
+app.use(
+  session({
+    secret: "Shw@MyAE$2022!", // any string for security
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+app.use(function (req, res, next) {
+  // req.session.users = {
+  //   name: "Mg Mg",
+  // };
+  res.locals.user = req.session.user;
+  next();
+});
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

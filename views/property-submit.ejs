@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <% include ./partial/head %>
+    <link rel="stylesheet" href="/assets/css/wizard.css" />
+  </head>
+  <body>
+    <div id="preloader">
+      <div id="status">&nbsp;</div>
+    </div>
+    <!-- Body content -->
+
+    <% include ./partial/navbar %>
+    <!-- End of nav bar -->
+
+    <div class="page-head">
+      <div class="container">
+        <div class="row">
+          <div class="page-head-content">
+            <h1 class="page-title">Submit new property</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-area submit-property" style="background-color: #fcfcfc">
+      &nbsp;
+      <div class="container">
+        <div class="clearfix">
+          <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+              <form
+                action="/submit_property"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <div class="wizard-header">
+                  <h3>
+                    <b>Submit</b> YOUR PROPERTY <br />
+                    <small
+                      >Your will see at prperty list after submit your
+                      property</small
+                    >
+                  </h3>
+                </div>
+
+                <ul>
+                  <li><a href="#step1" data-toggle="tab">Step 1 </a></li>
+                  <li><a href="#step2" data-toggle="tab">Step 2 </a></li>
+                  <li><a href="#step3" data-toggle="tab">Step 3 </a></li>
+                  <li><a href="#step4" data-toggle="tab">Finished </a></li>
+                </ul>
+
+                <div class="tab-content">
+                  <div class="tab-pane" id="step1">
+                    <div class="row p-b-15">
+                      <h4 class="info-text">
+                        Let's start with the basic information (with validation)
+                      </h4>
+                      <div class="col-sm-4 col-sm-offset-1">
+                        <div class="picture-container">
+                          <div class="picture">
+                            <img
+                              src="/assets/img/default-property.jpg"
+                              class="picture-src"
+                              id="wizardPicturePreview"
+                              title=""
+                            />
+                            <input
+                              type="file"
+                              id="wizard-picture"
+                              name="profile"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>Property name <small>(required)</small></label>
+                          <input
+                            name="name"
+                            type="text"
+                            class="form-control"
+                            placeholder="Super villa ..."
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label
+                            >Property price <small>(required)</small></label
+                          >
+                          <input
+                            name="price"
+                            type="text"
+                            class="form-control"
+                            placeholder="3330000"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label>Telephone</label>
+                          <input
+                            name="phone"
+                            type="text"
+                            class="form-control"
+                            placeholder="+1 473 843 7436"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label>Address</label>
+                          <input
+                            name="address"
+                            type="text"
+                            class="form-control"
+                            placeholder="No.7 A Mahar Bandoola Road"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  End step 1 -->
+
+                  <div class="tab-pane" id="step2">
+                    <h4 class="info-text">
+                      How much your Property is Beautiful ?
+                    </h4>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="col-sm-12">
+                          <div class="form-group">
+                            <label>Property Description :</label>
+                            <textarea
+                              name="description"
+                              class="form-control"
+                            ></textarea>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-12">
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                            <label>Property State :</label>
+                            <select
+                              id="state"
+                              class="selectpicker"
+                              data-live-search="true"
+                              data-live-search-style="begins"
+                              title="Select your state"
+                              name="state"
+                            ></select>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                            <label>Property City :</label>
+                            <select
+                              id="district"
+                              class="selectpicker"
+                              data-live-search="true"
+                              data-live-search-style="begins"
+                              title="Select your city"
+                              name="city"
+                            ></select>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                            <label>Property Statue :</label>
+                            <select
+                              id="pstatus"
+                              class="selectpicker show-tick form-control"
+                              onchange="stsCh()"
+                              name="pstatus"
+                            >
+                              <option>-Status-</option>
+                              <option value="rent">Rent</option>
+                              <option value="sell">Sell</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                            <label for="subscription"
+                              >Subscription<small>(for rent)</small></label
+                            >
+                            <input
+                              type="text"
+                              name="subscription"
+                              id="subscription"
+                              class="form-control"
+                              disabled
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <br />
+                    </div>
+                  </div>
+                  <!-- End step 2 -->
+
+                  <div class="tab-pane" id="step3">
+                    <h4 class="info-text">Give us somme images and videos ?</h4>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="property-images">Chose Images :</label>
+                          <input
+                            class="form-control"
+                            type="file"
+                            id="property-images"
+                            name="photo"
+                            multiple
+                          />
+                          <p class="help-block">
+                            Select multipel images for your property .
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="area">Area</label>
+                          <input
+                            class="form-control"
+                            value=""
+                            placeholder="400sqft"
+                            name="area"
+                            type="text"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="area">Bed Room</label>
+                          <input
+                            class="form-control"
+                            value=""
+                            placeholder="1"
+                            name="bedRoom"
+                            type="number"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="area">Bath Room</label>
+                          <input
+                            class="form-control"
+                            value=""
+                            placeholder="1"
+                            name="bathRoom"
+                            type="number"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  End step 3 -->
+
+                  <div class="tab-pane" id="step4">
+                    <h4 class="info-text">Finished and submit</h4>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="">
+                          <p>
+                            <label><strong>Terms and Conditions</strong></label>
+                            By accessing or using Shwe Myay services, such as
+                            posting your property advertisement with your
+                            personal information on our website you agree to the
+                            collection, use and disclosure of your personal
+                            information in the legal proper manner
+                          </p>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" />
+                              <strong>Accept termes and conditions.</strong>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  End step 4 -->
+                </div>
+
+                <div class="wizard-footer">
+                  <div class="pull-right">
+                    <input
+                      type="button"
+                      class="btn btn-next btn-primary"
+                      name="next"
+                      value="Next"
+                    />
+                    <input
+                      type="submit"
+                      class="btn btn-finish btn-primary"
+                      name="finish"
+                      value="Finish"
+                    />
+                  </div>
+
+                  <div class="pull-left">
+                    <input
+                      type="button"
+                      class="btn btn-previous btn-default"
+                      name="previous"
+                      value="Previous"
+                    />
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </form>
+            </div>
+            <!-- End submit form -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer area-->
+    <% include ./partial/footer %> <% include ./partial/script %>
+    <script
+      src="/assets/js/jquery.bootstrap.wizard.js"
+      type="text/javascript"
+    ></script>
+    <script src="/assets/js/jquery.validate.min.js"></script>
+    <script src="/assets/js/wizard.js"></script>
+  </body>
+  <script>
+    const regions = (<%- regions %>);
+    addOptions('state', regions);
+      $("#state").on('change', function(){
+          var cities = $.grep( regions, function( n, i ) {
+            return n.state == $("#state").val();
+          });
+          addOptions('district', cities);
+      });
+
+      function addOptions(id, arr){
+          $("#"+id).children().remove();
+
+          for(var idx in arr){
+              // if(idx == 0) $("#"+id).append(new Option('Select '+id, ''));
+              if(idx == 0 || arr[idx][id] != arr[idx-1][id]){
+                  $("#"+id).append(new Option(arr[idx][id], arr[idx][id]));
+              }
+          }
+          $('#district').selectpicker('refresh');
+      }
+      function stsCh(){
+        console.log($('#pstatus').val())
+        if($('#pstatus').val() == 'rent'){
+          $('#subscription').removeAttr("disabled");
+        }else{
+          $('#subscription').attr("disabled", 'disabled');
+        }
+      }
+  </script>
+</html>
