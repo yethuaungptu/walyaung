@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <% include ./partial/head %>
+
+    <link rel="stylesheet" href="/assets/css/lightslider.min.css" />
+  </head>
+  <body>
+    <div id="preloader">
+      <div id="status">&nbsp;</div>
+    </div>
+    <!-- Body content -->
+
+    <% include ./partial/navbar %>
+    <!-- End of nav bar -->
+
+    <div class="page-head">
+      <div class="container">
+        <div class="row">
+          <div class="page-head-content">
+            <h1 class="page-title">Property Detail</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-area single-property" style="background-color: #fcfcfc">
+      &nbsp;
+      <div class="container">
+        <div class="clearfix padding-top-40">
+          <div class="col-md-8 single-property-content prp-style-1">
+            <div class="row">
+              <div class="light-slide-item">
+                <div class="clearfix">
+                  <!-- <div class="favorite-and-print">
+                    <a
+                      class="add-to-fav"
+                      href="#login-modal"
+                      data-toggle="modal"
+                    >
+                      <i class="fa fa-star-o"></i>
+                    </a>
+                    <a class="printer-icon" href="javascript:window.print()">
+                      <i class="fa fa-print"></i>
+                    </a>
+                  </div> -->
+
+                  <ul
+                    id="image-gallery"
+                    class="gallery list-unstyled cS-hidden"
+                  >
+                    <% for(var i = 0; i < property.gallery.length; i++){%>
+                    <li data-thumb="<%= property.gallery[i] %>">
+                      <img src="<%= property.gallery[i] %>" />
+                    </li>
+                    <%}%>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="single-property-wrapper">
+              <div class="single-property-header">
+                <h1 class="property-title pull-left"><%= property.name %></h1>
+                <span class="property-price pull-right"
+                  ><%= property.price %> MMK</span
+                >
+              </div>
+
+              <div class="property-meta entry-meta clearfix">
+                <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                  <span class="property-info-icon icon-tag">
+                    <img src="/assets/img/icon/sale-orange.png" />
+                  </span>
+                  <span class="property-info-entry">
+                    <span class="property-info-label">Status</span>
+                    <span class="property-info-value"
+                      >For <%= property.status %></span
+                    >
+                  </span>
+                </div>
+
+                <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                  <span class="property-info icon-area">
+                    <img src="/assets/img/icon/room-orange.png" />
+                  </span>
+                  <span class="property-info-entry">
+                    <span class="property-info-label">Area</span>
+                    <span class="property-info-value"
+                      ><%= property.area %></span
+                    >
+                  </span>
+                </div>
+
+                <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                  <span class="property-info-icon icon-bed">
+                    <img src="/assets/img/icon/bed-orange.png" />
+                  </span>
+                  <span class="property-info-entry">
+                    <span class="property-info-label">Bedrooms</span>
+                    <span class="property-info-value"
+                      ><%= property.bedRoom %></span
+                    >
+                  </span>
+                </div>
+
+                <div class="col-xs-6 col-sm-3 col-md-3 p-b-15">
+                  <span class="property-info-icon icon-bath">
+                    <img src="/assets/img/icon/shawer-orange.png" />
+                  </span>
+                  <span class="property-info-entry">
+                    <span class="property-info-label">Bathrooms</span>
+                    <span class="property-info-value"
+                      ><%= property.bathRoom %></span
+                    >
+                  </span>
+                </div>
+              </div>
+              <!-- .property-meta -->
+
+              <div class="section">
+                <h4 class="s-property-title">Description</h4>
+                <div class="s-property-content">
+                  <p><%= property.description %></p>
+                </div>
+              </div>
+              <!-- End description area  -->
+
+              <div class="section additional-details">
+                <h4 class="s-property-title">Additional Details</h4>
+
+                <ul class="additional-details-list clearfix">
+                  <li>
+                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title"
+                      >State</span
+                    >
+                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"
+                      ><%= property.state %></span
+                    >
+                  </li>
+                  <li>
+                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title"
+                      >City</span
+                    >
+                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"
+                      ><%= property.city %></span
+                    >
+                  </li>
+                  <li>
+                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title"
+                      >Address</span
+                    >
+                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"
+                      ><%= property.address %></span
+                    >
+                  </li>
+                  <% if(property.status == 'rent'){%>
+                  <li>
+                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title"
+                      >Subscription</span
+                    >
+                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"
+                      ><%= property.subscription %> MMK</span
+                    >
+                  </li>
+                  <%}%>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 p0">
+            <aside class="sidebar sidebar-property blog-asside-right">
+              <div class="dealer-widget">
+                <div class="dealer-content">
+                  <div class="inner-wrapper">
+                    <div class="clear">
+                      <div class="col-xs-4 col-sm-4 dealer-face">
+                        <a href="">
+                          <img
+                            src="<%= property.agentId.imgUrl %>"
+                            class="img-circle"
+                          />
+                        </a>
+                      </div>
+                      <div class="col-xs-8 col-sm-8">
+                        <h3 class="dealer-name">
+                          <a href=""><%= property.agentId.name %></a>
+                          <span><%= property.agentId.role %></span>
+                        </h3>
+                      </div>
+                    </div>
+
+                    <div class="clear">
+                      <ul class="dealer-contacts">
+                        <li>
+                          <i class="pe-7s-map-marker strong"> </i> <%=
+                          property.agentId.address %>
+                        </li>
+                        <li>
+                          <i class="pe-7s-mail strong"> </i>
+                          <%= property.agentId.email %>
+                        </li>
+                        <li>
+                          <i class="pe-7s-call strong"> </i> <%=
+                          property.agentId.phone %>
+                        </li>
+                      </ul>
+                      <p><%= property.agentId.description %></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated"
+              >
+                <div class="panel-heading">
+                  <h3 class="panel-title">Similar Properties</h3>
+                </div>
+                <div class="panel-body recent-property-widget">
+                  <ul>
+                    <% for(var i = 0; i < smproperty.length; i++){%>
+                    <li>
+                      <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
+                        <a href="/property_detail/<%= smproperty[i]._id%>"
+                          ><img src="<%= smproperty[i].profile%>"
+                        /></a>
+                      </div>
+                      <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
+                        <h6>
+                          <a href="/property_detail/<%= smproperty[i]._id%>"
+                            ><%= smproperty[i].name%>
+                          </a>
+                        </h6>
+                        <span class="property-price"
+                          ><%= smproperty[i].price%> MMK</span
+                        >
+                      </div>
+                    </li>
+                    <%}%>
+                  </ul>
+                </div>
+              </div>
+
+              <div
+                class="panel panel-default sidebar-menu wow fadeInRight animated"
+              >
+                <div class="panel-heading">
+                  <h3 class="panel-title">Ads her</h3>
+                </div>
+                <div class="panel-body recent-property-widget">
+                  <img src="/assets/img/ads.jpg" />
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer area-->
+    <% include ./partial/footer %> <% include ./partial/script %>
+    <script type="text/javascript" src="/assets/js/lightslider.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#image-gallery").lightSlider({
+          gallery: true,
+          item: 1,
+          thumbItem: 9,
+          slideMargin: 0,
+          speed: 500,
+          auto: true,
+          loop: true,
+          onSliderLoad: function () {
+            $("#image-gallery").removeClass("cS-hidden");
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

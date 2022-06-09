@@ -84,7 +84,7 @@
                   >
                     <option>-Status-</option>
                     <option value="rent">Rent</option>
-                    <option value="sell">Sell</option>
+                    <option value="sale">Sale</option>
                   </select>
                 </div>
                 <button class="btn search-btn" type="submit">
@@ -191,14 +191,14 @@
                 <div class="col-sm-6 col-md-3 p0">
                   <div class="box-two proerty-item">
                     <div class="item-thumb">
-                      <a href="/properties/<%= properties[i]._id%>"
+                      <a href="/property_detail/<%= properties[i]._id%>"
                         ><img src="<%= properties[i].profile%>"
                       /></a>
                     </div>
 
                     <div class="item-entry overflow">
                       <h5>
-                        <a href="/properties/<%= properties[i]._id%>">
+                        <a href="/property_detail/<%= properties[i]._id%>">
                           <%= properties[i].name %>
                         </a>
                       </h5>
@@ -207,7 +207,7 @@
                         ><b> Area :</b> <%= properties[i].area %>
                       </span>
                       <span class="proerty-price pull-right"
-                        ><%= properties[i].price %></span
+                        ><%= properties[i].price %> MMK</span
                       >
                       <p style="display: none">
                         <%= properties[i].description %>

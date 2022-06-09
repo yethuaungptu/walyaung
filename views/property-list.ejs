@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <% include ./partial/head %>
+
+    <link rel="stylesheet" href="/assets/css/lightslider.min.css" />
+  </head>
+  <body>
+    <div id="preloader">
+      <div id="status">&nbsp;</div>
+    </div>
+    <!-- Body content -->
+
+    <% include ./partial/navbar %>
+    <!-- End of nav bar -->
+
+    <div class="page-head">
+      <div class="container">
+        <div class="row">
+          <div class="page-head-content">
+            <h1 class="page-title">Property List</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="properties-area recent-property" style="background-color: #fff">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-9 padding-top-40 properties-page">
+            <div class="section clear">
+              <div class="col-xs-10 page-subheader sorting pl0">
+                <ul class="sort-by-list">
+                  <li class="active">
+                    <a
+                      href="javascript:void(0);"
+                      class="order_by_date"
+                      data-orderby="property_date"
+                      data-order="ASC"
+                    >
+                      Property Date <i class="fa fa-sort-amount-asc"></i>
+                    </a>
+                  </li>
+                  <li class="">
+                    <a
+                      href="javascript:void(0);"
+                      class="order_by_price"
+                      data-orderby="property_price"
+                      data-order="DESC"
+                    >
+                      Property Price <i class="fa fa-sort-numeric-desc"></i>
+                    </a>
+                  </li>
+                </ul>
+                <!--/ .sort-by-list-->
+                <div class="items-per-page">
+                  <label for="items_per_page"><b>Property per page :</b></label>
+                  <div class="sel">
+                    <select id="items_per_page" name="per_page">
+                      <option value="3">3</option>
+                      <option value="6">6</option>
+                      <option value="9">9</option>
+                      <option selected="selected" value="12">12</option>
+                      <option value="15">15</option>
+                      <option value="30">30</option>
+                      <option value="45">45</option>
+                      <option value="60">60</option>
+                    </select>
+                  </div>
+                  <!--/ .sel-->
+                </div>
+                <!--/ .items-per-page-->
+              </div>
+
+              <div class="col-xs-2 layout-switcher">
+                <a class="layout-list" href="javascript:void(0);">
+                  <i class="fa fa-th-list"></i>
+                </a>
+                <a class="layout-grid active" href="javascript:void(0);">
+                  <i class="fa fa-th"></i>
+                </a>
+              </div>
+              <!--/ .layout-switcher-->
+            </div>
+
+            <div class="section clear">
+              <div id="list-type" class="proerty-th">
+                <% for(var i = 0; i < properties.length; i++){%>
+                <div class="col-sm-6 col-md-4 p0">
+                  <div class="box-two proerty-item">
+                    <div class="item-thumb">
+                      <a href="/property_detail/<%= properties[i]._id%>"
+                        ><img src="<%= properties[i].profile%>"
+                      /></a>
+                    </div>
+
+                    <div class="item-entry overflow">
+                      <h5>
+                        <a href="/property_detail/<%= properties[i]._id%>">
+                          <%= properties[i].name %>
+                        </a>
+                      </h5>
+                      <div class="dot-hr"></div>
+                      <span class="pull-left"
+                        ><b> Area :</b> <%= properties[i].area %>
+                      </span>
+                      <span class="proerty-price pull-right">
+                        <%= properties[i].price %> MMK</span
+                      >
+                      <p style="display: none">
+                        <%= properties[i].description %>
+                      </p>
+                      <div class="property-icon">
+                        <img src="/assets/img/icon/bed.png" />(<%=
+                        properties[i].bedRoom %>)|
+                        <img src="/assets/img/icon/shawer.png" />(<%=
+                        properties[i].bathRoom %>)|
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <%}%>
+              </div>
+            </div>
+            <div class="section">
+              <div class="pull-right">
+                <div class="pagination">
+                  <ul>
+                    <li><a href="#">Prev</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">Next</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3 pl0 padding-top-40">
+            <div class="blog-asside-right pl0">
+              <div
+                class="panel panel-default sidebar-menu wow fadeInRight animated"
+              >
+                <div class="panel-heading">
+                  <h3 class="panel-title">Smart search</h3>
+                </div>
+                <div class="panel-body search-widget">
+                  <form action="" class="form-inline">
+                    <fieldset>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <select
+                            id="state"
+                            class="selectpicker"
+                            data-live-search="true"
+                            data-live-search-style="begins"
+                            title="Select Your State"
+                            name="state"
+                          ></select>
+                        </div>
+                      </div>
+                    </fieldset>
+
+                    <fieldset>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <select
+                            id="district"
+                            class="selectpicker"
+                            data-live-search="true"
+                            data-live-search-style="begins"
+                            title="Select Your City"
+                            name="district"
+                          ></select>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <select
+                            id="basic"
+                            class="selectpicker show-tick form-control"
+                          >
+                            <option>-Status-</option>
+                            <option name="rent">Rent</option>
+                            <option name="sale">Sale</option>
+                          </select>
+                        </div>
+                      </div>
+                    </fieldset>
+
+                    <fieldset>
+                      <div class="row">
+                        <div class="col-xs-12">
+                          <input
+                            class="button btn largesearch-btn"
+                            value="Search"
+                            type="submit"
+                          />
+                        </div>
+                      </div>
+                    </fieldset>
+                  </form>
+                </div>
+              </div>
+
+              <!-- <div
+                class="panel panel-default sidebar-menu wow fadeInRight animated"
+              >
+                <div class="panel-heading">
+                  <h3 class="panel-title">Recommended</h3>
+                </div>
+                <div class="panel-body recent-property-widget">
+                  <ul>
+                    <li>
+                      <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
+                        <a href="single.html"
+                          ><img src="/assets/img/demo/small-property-2.jpg"
+                        /></a>
+                        <span class="property-seeker">
+                          <b class="b-1">A</b>
+                          <b class="b-2">S</b>
+                        </span>
+                      </div>
+                      <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
+                        <h6><a href="single.html">Super nice villa </a></h6>
+                        <span class="property-price">3000000$</span>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
+                        <a href="single.html"
+                          ><img src="/assets/img/demo/small-property-1.jpg"
+                        /></a>
+                        <span class="property-seeker">
+                          <b class="b-1">A</b>
+                          <b class="b-2">S</b>
+                        </span>
+                      </div>
+                      <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
+                        <h6><a href="single.html">Super nice villa </a></h6>
+                        <span class="property-price">3000000$</span>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
+                        <a href="single.html"
+                          ><img src="/assets/img/demo/small-property-3.jpg"
+                        /></a>
+                        <span class="property-seeker">
+                          <b class="b-1">A</b>
+                          <b class="b-2">S</b>
+                        </span>
+                      </div>
+                      <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
+                        <h6><a href="single.html">Super nice villa </a></h6>
+                        <span class="property-price">3000000$</span>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
+                        <a href="single.html"
+                          ><img src="/assets/img/demo/small-property-2.jpg"
+                        /></a>
+                        <span class="property-seeker">
+                          <b class="b-1">A</b>
+                          <b class="b-2">S</b>
+                        </span>
+                      </div>
+                      <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
+                        <h6><a href="single.html">Super nice villa </a></h6>
+                        <span class="property-price">3000000$</span>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer area-->
+    <% include ./partial/footer %> <% include ./partial/script %>
+    <script type="text/javascript" src="/assets/js/lightslider.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#image-gallery").lightSlider({
+          gallery: true,
+          item: 1,
+          thumbItem: 9,
+          slideMargin: 0,
+          speed: 500,
+          auto: true,
+          loop: true,
+          onSliderLoad: function () {
+            $("#image-gallery").removeClass("cS-hidden");
+          },
+        });
+      });
+    </script>
+    <script>
+      const regions = (<%- regions %>);
+      addOptions('state', regions);
+        $("#state").on('change', function(){
+            var cities = $.grep( regions, function( n, i ) {
+              return n.state == $("#state").val();
+            });
+            addOptions('district', cities);
+        });
+
+        function addOptions(id, arr){
+            $("#"+id).children().remove();
+
+            for(var idx in arr){
+                // if(idx == 0) $("#"+id).append(new Option('Select '+id, ''));
+                if(idx == 0 || arr[idx][id] != arr[idx-1][id]){
+                    $("#"+id).append(new Option(arr[idx][id], arr[idx][id]));
+                }
+            }
+            $('#district').selectpicker('refresh');
+        }
+    </script>
+  </body>
+</html>

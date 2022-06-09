@@ -8,7 +8,7 @@ var PropertySchema = new Schema({
     required: true,
   },
   price: {
-    type: String,
+    type: Number,
     required: true,
   },
   address: {
@@ -24,8 +24,8 @@ var PropertySchema = new Schema({
     required: true,
   },
   subscription: {
-    type: String,
-    default: "0 MMK",
+    type: Number,
+    default: 0,
   },
   status: {
     type: String,

@@ -127,4 +127,34 @@ router.post("/submit_property", auth, ppUpload, (req, res) => {
   console.log(req.files, req.body);
 });
 
+router.get("/property_detail/:pid", (req, res) => {
+  Property.findById(req.params.pid)
+    .populate("agentId")
+    .exec((err, rtn) => {
+      if (err) throw err;
+      Property.find({
+        state: rtn.state,
+        city: rtn.city,
+        _id: { $ne: rtn._id },
+      })
+        .select("profile name price")
+        .sort({ created: -1 })
+        .limit(4)
+        .exec((err2, rtn2) => {
+          if (err2) throw err2;
+          res.render("property-detail", { property: rtn, smproperty: rtn2 });
+        });
+    });
+});
+
+router.get("/properties", (req, res) => {
+  const regions = JSON.stringify(location.getAllLocations());
+  Property.find()
+    .select("_id name area price profile bathRoom bedRoom description")
+    .exec((err, rtn) => {
+      if (err) throw err;
+      res.render("property-list", { properties: rtn, regions: regions });
+    });
+});
+
 module.exports = router;
