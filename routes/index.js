@@ -32,11 +32,12 @@ const auth = (req, res, next) => {
 router.get("/", function (req, res, next) {
   const regions = JSON.stringify(location.getAllLocations());
   Property.find({})
+    .sort({ inserted: -1 })
+    .limit(10)
     .select("_id name description profile area price bathRoom bedRoom")
     .exec((err, rtn) => {
       if (err) throw err;
       res.render("index", {
-        title: "Express",
         regions: regions,
         properties: rtn,
       });
@@ -149,12 +150,66 @@ router.get("/property_detail/:pid", (req, res) => {
 
 router.get("/properties", (req, res) => {
   const regions = JSON.stringify(location.getAllLocations());
-  Property.find()
-    .select("_id name area price profile bathRoom bedRoom description")
-    .exec((err, rtn) => {
-      if (err) throw err;
-      res.render("property-list", { properties: rtn, regions: regions });
-    });
+  let query = {};
+  let sorting = { inserted: -1 };
+  let sortingType = "date";
+  if (req.query) {
+    if (req.query.price) {
+      const pmax = Number(req.query.price.split(",")[1]);
+      const pmin = Number(req.query.price.split(",")[0]);
+      const price = { $gt: pmin, $lt: pmax };
+      query.price = price;
+    }
+    if (req.query.state) query.state = req.query.state;
+    if (req.query.district) query.district = req.query.district;
+    if (req.query.status && req.query.status != "-Status-")
+      query.status = req.query.status;
+    if (req.query.sortingType) {
+      if (req.query.sortingType == "date") {
+        sortingType = "date";
+        sorting = { inserted: -1 };
+      } else {
+        sortingType = "price";
+        sorting = { price: 1 };
+      }
+    }
+  }
+  console.log(query);
+  Property.countDocuments(query, (err2, count) => {
+    if (err2) throw err2;
+    var paging = {
+      currpage: Number(req.query.currpage) || 1,
+      perpage: Number(req.query.perpage) || 12,
+      count: count,
+      total: Math.ceil(count / (req.query.perpage || 12)),
+      psize: 5,
+      skip: {},
+    };
+    paging.start =
+      (Math.ceil(paging.currpage / paging.psize) - 1) * paging.psize + 1;
+    paging.end = paging.start + paging.psize - 1;
+    if (paging.end > paging.total) paging.end = paging.total;
+
+    paging.skip.next =
+      paging.psize * Math.ceil(paging.currpage / paging.psize) + 1;
+    paging.skip.prev = paging.skip.next - paging.psize * 2;
+    console.log(query);
+    Property.find(query)
+      .limit(paging.perpage)
+      .sort(sorting)
+      .skip((paging.currpage - 1) * paging.perpage)
+      .select("_id name area price profile bathRoom bedRoom description")
+      .exec((err, rtn) => {
+        if (err) throw err;
+
+        res.render("property-list", {
+          properties: rtn,
+          regions: regions,
+          sortingType: sortingType,
+          paging: paging,
+        });
+      });
+  });
 });
 
 module.exports = router;

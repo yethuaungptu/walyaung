@@ -35,9 +35,9 @@
             <div class="section clear">
               <div class="col-xs-10 page-subheader sorting pl0">
                 <ul class="sort-by-list">
-                  <li class="active">
+                  <li class="<%= (sortingType == 'date')? 'active':'' %>">
                     <a
-                      href="javascript:void(0);"
+                      href="javascript:changeSortType('date');"
                       class="order_by_date"
                       data-orderby="property_date"
                       data-order="ASC"
@@ -45,9 +45,9 @@
                       Property Date <i class="fa fa-sort-amount-asc"></i>
                     </a>
                   </li>
-                  <li class="">
+                  <li class="<%= (sortingType == 'price')? 'active':'' %>">
                     <a
-                      href="javascript:void(0);"
+                      href="javascript:changeSortType('price')"
                       class="order_by_price"
                       data-orderby="property_price"
                       data-order="DESC"
@@ -61,14 +61,14 @@
                   <label for="items_per_page"><b>Property per page :</b></label>
                   <div class="sel">
                     <select id="items_per_page" name="per_page">
-                      <option value="3">3</option>
-                      <option value="6">6</option>
-                      <option value="9">9</option>
-                      <option selected="selected" value="12">12</option>
-                      <option value="15">15</option>
-                      <option value="30">30</option>
-                      <option value="45">45</option>
-                      <option value="60">60</option>
+                      <option value="3" <%= (paging.perpage == "3")? "selected":"" %> >3</option>
+                      <option value="6" <%= (paging.perpage == "6")? "selected":"" %> >6</option>
+                      <option value="9" <%= (paging.perpage == "9")? "selected":"" %> >9</option>
+                      <option value="12" <%= (paging.perpage == "12")? "selected":"" %> >12</option>
+                      <option value="15" <%= (paging.perpage == "15")? "selected":"" %> >15</option>
+                      <option value="30" <%= (paging.perpage == "30")? "selected":"" %> >30</option>
+                      <option value="45" <%= (paging.perpage == "45")? "selected":"" %> >45</option>
+                      <option value="60" <%= (paging.perpage == "60")? "selected":"" %> >60</option>
                     </select>
                   </div>
                   <!--/ .sel-->
@@ -130,12 +130,19 @@
               <div class="pull-right">
                 <div class="pagination">
                   <ul>
-                    <li><a href="#">Prev</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">Next</a></li>
+                    <li class="<%= (paging.skip.prev < 0)?'disabled':''%>">
+                      <a href="javascript:go(<%= paging.skip.prev %>)">Prev</a>
+                    </li>
+                    <% for(var i = paging.start; i<= paging.end; i++){%>
+                    <li class="<%=(i == paging.currpage)?'active':''%>">
+                      <a href="javascript:go(<%= i %>)"><%= i %></a>
+                    </li>
+                    <%}%>
+                    <li
+                      class="<%= (paging.skip.next >= paging.total)?'disabled':''%>"
+                    >
+                      <a href="javascript:go(<%= paging.skip.next%>)">Next</a>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -150,7 +157,10 @@
                   <h3 class="panel-title">Smart search</h3>
                 </div>
                 <div class="panel-body search-widget">
-                  <form action="" class="form-inline">
+                  <form action="/properties" name="frm" class="form-inline">
+                    <input type="hidden" name="perpage" id="perpage" />
+                    <input type="hidden" name="sortingType" />
+                    <input type="hidden" name="currpage" />
                     <fieldset>
                       <div class="row">
                         <div class="col-xs-12">
@@ -186,10 +196,11 @@
                           <select
                             id="basic"
                             class="selectpicker show-tick form-control"
+                            name="status"
                           >
                             <option>-Status-</option>
-                            <option name="rent">Rent</option>
-                            <option name="sale">Sale</option>
+                            <option value="rent">Rent</option>
+                            <option value="sale">Sale</option>
                           </select>
                         </div>
                       </div>
@@ -306,6 +317,23 @@
           },
         });
       });
+
+      function go(page) {
+        if(page == -1 || page> (<%= paging.total %>)) return;
+        frm.currpage.value = page;
+        frm.submit();
+      }
+
+      $("#items_per_page").change(function () {
+          console.log($("#items_per_page").val());
+          frm.perpage.value = $("#items_per_page").val();
+          frm.submit();
+        });
+        $("#perpage").val(<%= paging.perpage %>);
+        function changeSortType(type){
+          frm.sortingType.value = type;
+          frm.submit()
+        }
     </script>
     <script>
       const regions = (<%- regions %>);

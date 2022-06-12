@@ -46,6 +46,7 @@
                     name="name"
                     class="form-control"
                     id="name"
+                    required
                   />
                 </div>
                 <div class="form-group">
@@ -55,6 +56,7 @@
                     name="email"
                     class="form-control"
                     id="email"
+                    required
                   />
                 </div>
                 <div class="form-group">
@@ -64,6 +66,7 @@
                     name="password"
                     class="form-control"
                     id="password"
+                    required
                   />
                 </div>
                 <div class="form-group">
@@ -73,6 +76,7 @@
                     name="address"
                     class="form-control"
                     id="address"
+                    required
                   />
                 </div>
                 <div class="form-group">
@@ -82,6 +86,7 @@
                     name="phone"
                     class="form-control"
                     id="phone"
+                    required
                   />
                 </div>
                 <div class="form-group">
@@ -91,6 +96,7 @@
                     name="role"
                     class="form-control"
                     id="role"
+                    required
                   />
                 </div>
                 <div class="form-group">
@@ -99,6 +105,7 @@
                     name="desc"
                     id="desc"
                     class="form-control"
+                    required
                   ></textarea>
                 </div>
                 <div class="text-center">
@@ -122,6 +129,7 @@
                       id="uploadImg"
                       name="uploadImg"
                       accept="images/*"
+                      required
                     />
                   </label>
                 </div>
@@ -203,6 +211,7 @@
     <!-- Footer area-->
     <% include ./partial/footer %> <% include ./partial/script %>
     <script src="/javascripts/cropper.min.js" charset="utf-8"></script>
+    <script src="/assets/js/jquery.validate.min.js"></script>
     <script>
       var $modal = $("#modal");
       var uploadImg = document.getElementById("uploadImg"); // upload file
@@ -259,30 +268,35 @@
         }
       });
       $("#save").click(function () {
-        canvas.toBlob(function (blob) {
-          var formData = new FormData(document.getElementById("frm"));
-          formData.append("photo", blob);
-          $.ajax("/register", {
-            method: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (result) {
-              console.log(result);
-              if (result.status) {
-                location.href = "/register";
-              } else {
-                alert("Something was wrong");
-              }
-            },
-            error: function (err) {
-              console.log(err);
-            },
-            complete: function () {
-              console.log("complate");
-            },
+        if (!canvas) {
+          alert("please fill all fields");
+        } else {
+          $("#frm").validate();
+          canvas.toBlob(function (blob) {
+            var formData = new FormData(document.getElementById("frm"));
+            formData.append("photo", blob);
+            $.ajax("/register", {
+              method: "POST",
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function (result) {
+                console.log(result);
+                if (result.status) {
+                  location.href = "/register";
+                } else {
+                  alert("Something was wrong, please check your fields");
+                }
+              },
+              error: function (err) {
+                console.log(err);
+              },
+              complete: function () {
+                console.log("complate");
+              },
+            });
           });
-        });
+        }
       });
     </script>
   </body>

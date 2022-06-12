@@ -42,14 +42,12 @@
           <div
             class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12"
           >
-            <h2>property Searching Just Got So Easy</h2>
+            <h2>Property Searching Just Got So Easy</h2>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi
-              deserunt deleniti, ullam commodi sit ipsam laboriosam velit
-              adipisci quibusdam aliquam teneturo!
+              Following feature will help you to find more easily for results
             </p>
             <div class="search-form wow pulse" data-wow-delay="0.8s">
-              <form action="" class="form-inline">
+              <form action="/properties" class="form-inline">
                 <button class="btn toggle-btn" type="button">
                   <i class="fa fa-bars"></i>
                 </button>
@@ -62,9 +60,7 @@
                     data-live-search="true"
                     data-live-search-style="begins"
                     title="Select your State"
-                  >
-                    <option>New york, CA</option>
-                  </select>
+                  ></select>
                 </div>
                 <div class="form-group">
                   <select
@@ -94,20 +90,20 @@
                 <div style="display: none" class="search-toggle">
                   <div class="search-row">
                     <div class="form-group mar-r-20">
-                      <label for="price-range">Price range ($):</label>
+                      <label for="price-range">Price range (MMK):</label>
                       <input
                         type="text"
                         class="span2"
                         value=""
                         name="price"
-                        data-slider-min="0"
-                        data-slider-max="600"
-                        data-slider-step="5"
-                        data-slider-value="[0,450]"
+                        data-slider-min="100000"
+                        data-slider-max="1000000000"
+                        data-slider-step="10000"
+                        data-slider-value="[100000,1000000000]"
                         id="price-range"
                       /><br />
-                      <b class="pull-left color">2000$</b>
-                      <b class="pull-right color">100000$</b>
+                      <b class="pull-left color">100000 MMK</b>
+                      <b class="pull-right color">1000000000 MMK</b>
                     </div>
                     <!-- End of  -->
 
@@ -131,46 +127,8 @@
           <div class="col-md-12 padding-top-40 properties-page">
             <div class="col-md-12">
               <div class="col-xs-10 page-subheader sorting pl0">
-                <ul class="sort-by-list">
-                  <li class="active">
-                    <a
-                      href="javascript:void(0);"
-                      class="order_by_date"
-                      data-orderby="property_date"
-                      data-order="ASC"
-                    >
-                      Property Date <i class="fa fa-sort-amount-asc"></i>
-                    </a>
-                  </li>
-                  <li class="">
-                    <a
-                      href="javascript:void(0);"
-                      class="order_by_price"
-                      data-orderby="property_price"
-                      data-order="DESC"
-                    >
-                      Property Price <i class="fa fa-sort-numeric-desc"></i>
-                    </a>
-                  </li>
-                </ul>
                 <!--/ .sort-by-list-->
-
-                <div class="items-per-page">
-                  <label for="items_per_page"><b>Property per page :</b></label>
-                  <div class="sel">
-                    <select id="items_per_page" name="per_page">
-                      <option value="3">3</option>
-                      <option value="6">6</option>
-                      <option value="9">9</option>
-                      <option selected="selected" value="12">12</option>
-                      <option value="15">15</option>
-                      <option value="30">30</option>
-                      <option value="45">45</option>
-                      <option value="60">60</option>
-                    </select>
-                  </div>
-                  <!--/ .sel-->
-                </div>
+                <h3>Last 10 Property</h3>
                 <!--/ .items-per-page-->
               </div>
 
@@ -222,20 +180,6 @@
                   </div>
                 </div>
                 <%}%>
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="pull-right">
-                <div class="pagination">
-                  <ul>
-                    <li><a href="#">Prev</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">Next</a></li>
-                  </ul>
-                </div>
               </div>
             </div>
           </div>

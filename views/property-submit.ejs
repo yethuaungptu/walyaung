@@ -65,7 +65,7 @@
                         <div class="picture-container">
                           <div class="picture">
                             <img
-                              src="/assets/img/default-property.jpg"
+                              src="/images/upload_image.jpeg"
                               class="picture-src"
                               id="wizardPicturePreview"
                               title=""
@@ -74,6 +74,7 @@
                               type="file"
                               id="wizard-picture"
                               name="profile"
+                              required
                             />
                           </div>
                         </div>
@@ -85,6 +86,7 @@
                             name="name"
                             type="text"
                             class="form-control"
+                            required
                             placeholder="Super villa ..."
                           />
                         </div>
@@ -97,6 +99,7 @@
                             name="price"
                             type="number"
                             class="form-control"
+                            required
                             placeholder="3330000"
                           />
                         </div>
@@ -106,7 +109,9 @@
                             name="phone"
                             type="text"
                             class="form-control"
-                            placeholder="+1 473 843 7436"
+                            placeholder="09787888882"
+                            id="phone"
+                            required
                           />
                         </div>
                         <div class="form-group">
@@ -114,6 +119,7 @@
                           <input
                             name="address"
                             type="text"
+                            required
                             class="form-control"
                             placeholder="No.7 A Mahar Bandoola Road"
                           />
@@ -135,6 +141,7 @@
                             <textarea
                               name="description"
                               class="form-control"
+                              required
                             ></textarea>
                           </div>
                         </div>
@@ -151,6 +158,7 @@
                               data-live-search-style="begins"
                               title="Select your state"
                               name="state"
+                              required
                             ></select>
                           </div>
                         </div>
@@ -164,6 +172,7 @@
                               data-live-search-style="begins"
                               title="Select your city"
                               name="city"
+                              required
                             ></select>
                           </div>
                         </div>
@@ -175,6 +184,7 @@
                               class="selectpicker show-tick form-control"
                               onchange="stsCh()"
                               name="pstatus"
+                              required
                             >
                               <option>-Status-</option>
                               <option value="rent">Rent</option>
@@ -183,7 +193,7 @@
                           </div>
                         </div>
                         <div class="col-sm-3">
-                          <div class="form-group">
+                          <div class="form-group hide" id="sub_id">
                             <label for="subscription"
                               >Subscription<small>(for rent)</small></label
                             >
@@ -213,6 +223,7 @@
                             type="file"
                             id="property-images"
                             name="photo"
+                            required
                             multiple
                           />
                           <p class="help-block">
@@ -225,10 +236,10 @@
                           <label for="area">Area</label>
                           <input
                             class="form-control"
-                            value=""
                             placeholder="400sqft"
                             name="area"
                             type="text"
+                            required
                           />
                         </div>
 
@@ -236,10 +247,10 @@
                           <label for="area">Bed Room</label>
                           <input
                             class="form-control"
-                            value=""
                             placeholder="1"
                             name="bedRoom"
                             type="number"
+                            required
                           />
                         </div>
 
@@ -247,10 +258,10 @@
                           <label for="area">Bath Room</label>
                           <input
                             class="form-control"
-                            value=""
                             placeholder="1"
                             name="bathRoom"
                             type="number"
+                            required
                           />
                         </div>
                       </div>
@@ -273,7 +284,7 @@
                           </p>
                           <div class="checkbox">
                             <label>
-                              <input type="checkbox" />
+                              <input type="checkbox" name="accept" required />
                               <strong>Accept termes and conditions.</strong>
                             </label>
                           </div>
@@ -351,10 +362,13 @@
       function stsCh(){
         console.log($('#pstatus').val())
         if($('#pstatus').val() == 'rent'){
+          $('#sub_id').removeClass("hide");
           $('#subscription').removeAttr("disabled");
         }else{
+          $('#sub_id').addClass("hide");
           $('#subscription').attr("disabled", 'disabled');
         }
       }
   </script>
+  <script src="/javascripts/additional-methods.min.js"></script>
 </html>
