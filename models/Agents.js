@@ -24,6 +24,10 @@ var AgentSchema = new Schema({
     type: String,
     default: "null",
   },
+  type: {
+    type: String,
+    default: "free",
+  },
   password: {
     type: String,
     required: true,

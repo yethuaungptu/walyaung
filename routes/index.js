@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const multer = require("multer");
 const path = require("path");
+const bcrypt = require("bcryptjs");
 const upload = multer({ dest: "public/images/uploads/profile" });
 const Agents = require("../models/Agents");
 const Property = require("../models/Property");
@@ -58,6 +59,7 @@ router.post("/register", upload.single("photo"), (req, res) => {
   agent.address = req.body.address;
   agent.phone = req.body.phone;
   if (req.file) agent.imgUrl = "/images/uploads/profile/" + req.file.filename;
+  else agent.imgUrl = "/images/default.png";
   agent.save((err, rtn) => {
     if (err) {
       console.log("error", err);
@@ -85,6 +87,7 @@ router.post("/signin", (req, res) => {
         role: rtn.role,
         profile: rtn.imgUrl,
         phone: rtn.phone,
+        type: rtn.type,
       };
       res.redirect("/");
     } else {
@@ -95,7 +98,12 @@ router.post("/signin", (req, res) => {
 
 router.get("/submit_property", auth, (req, res) => {
   const regions = JSON.stringify(location.getAllLocations());
-  res.render("property-submit", { regions: regions });
+  let permission = true;
+  Property.countDocuments({ agentId: req.session.user.id }, (err, count) => {
+    if (err) throw err;
+    if (count > 0 && req.session.user.type == "free") permission = false;
+    res.render("property-submit", { regions: regions, permission: permission });
+  });
 });
 
 router.post("/submit_property", auth, ppUpload, (req, res) => {
@@ -210,6 +218,54 @@ router.get("/properties", (req, res) => {
         });
       });
   });
+});
+
+router.get("/logout", (req, res) => {
+  req.session.destroy((err, data) => {
+    if (err) throw err;
+    res.redirect("/");
+  });
+});
+
+router.get("/myprofile", auth, (req, res) => {
+  Agents.findById(req.session.user.id, (err, rtn) => {
+    if (err) throw err;
+    res.render("myprofile", { profile: rtn });
+  });
+});
+
+router.post("/myprofile", auth, upload.single("photo"), (req, res) => {
+  let update = {
+    name: req.body.name,
+    phone: req.body.phone,
+    role: req.body.role,
+    address: req.body.address,
+    description: req.body.desc,
+  };
+  if (req.file) update.imgUrl = "/images/uploads/profile/" + req.file.filename;
+  if (req.body.password != "")
+    update.password = bcrypt.hashSync(
+      req.body.password,
+      bcrypt.genSaltSync(8),
+      null
+    );
+  Agents.findByIdAndUpdate(
+    req.session.user.id,
+    { $set: update },
+    (err, rtn) => {
+      if (err) throw err;
+      res.redirect("/myprofile");
+    }
+  );
+});
+
+router.get("/myproperties", auth, (req, res) => {
+  Property.find({ agentId: req.session.user.id })
+    .select("_id name area price profile bathRoom bedRoom description")
+    .exec((err, rtn) => {
+      if (err) throw err;
+      res.render("myproperties", { properties: rtn });
+    });
 });
 
 module.exports = router;

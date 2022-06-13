@@ -15,6 +15,10 @@ var PropertySchema = new Schema({
     type: String,
     required: true,
   },
+  soldout: {
+    type: Boolean,
+    default: false,
+  },
   phone: {
     type: String,
     required: true,

@@ -38,6 +38,7 @@ app.use(function (req, res, next) {
   //   name: "Mg Mg",
   // };
   res.locals.user = req.session.user;
+  res.locals.admin = req.session.admin;
   next();
 });
 

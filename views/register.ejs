@@ -35,8 +35,8 @@
               <h2>New account :</h2>
               <form
                 method="post"
-                name="frm"
-                id="frm"
+                name="regfrm"
+                id="regfrm"
                 enctype="multipart/form-data"
               >
                 <div class="form-group">
@@ -213,6 +213,9 @@
     <script src="/javascripts/cropper.min.js" charset="utf-8"></script>
     <script src="/assets/js/jquery.validate.min.js"></script>
     <script>
+      $(function () {
+        $("#regfrm").validate();
+      });
       var $modal = $("#modal");
       var uploadImg = document.getElementById("uploadImg"); // upload file
       uploadImg.addEventListener("change", function (e) {
@@ -268,12 +271,16 @@
         }
       });
       $("#save").click(function () {
-        if (!canvas) {
-          alert("please fill all fields");
-        } else {
-          $("#frm").validate();
+        $("#name").valid();
+        $("#email").valid();
+        $("#password").valid();
+        $("#address").valid();
+        $("#phone").valid();
+        $("#role").valid();
+        $("#desc").valid();
+        if (canvas) {
           canvas.toBlob(function (blob) {
-            var formData = new FormData(document.getElementById("frm"));
+            var formData = new FormData(document.getElementById("regfrm"));
             formData.append("photo", blob);
             $.ajax("/register", {
               method: "POST",
@@ -295,6 +302,28 @@
                 console.log("complate");
               },
             });
+          });
+        } else {
+          var formData = new FormData(document.getElementById("regfrm"));
+          $.ajax("/register", {
+            method: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+              console.log(result);
+              if (result.status) {
+                location.href = "/register";
+              } else {
+                alert("Something was wrong, please check your fields");
+              }
+            },
+            error: function (err) {
+              console.log(err);
+            },
+            complete: function () {
+              console.log("complate");
+            },
           });
         }
       });

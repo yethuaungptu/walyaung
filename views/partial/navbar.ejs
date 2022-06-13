@@ -19,6 +19,15 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse yamm" id="navigation">
       <div class="button navbar-right">
+        <% if(locals.user){%>
+        <button
+          class="navbar-btn nav-button wow bounceInRight login"
+          onclick="location.href = '/logout'"
+          data-wow-delay="0.4s"
+        >
+          Logout
+        </button>
+        <%}else{%>
         <button
           class="navbar-btn nav-button wow bounceInRight login"
           onclick="location.href = '/register'"
@@ -26,6 +35,7 @@
         >
           Login
         </button>
+        <%}%>
         <button
           class="navbar-btn nav-button wow fadeInRight"
           onclick="location.href = '/submit_property'"
@@ -45,6 +55,14 @@
         <li class="wow fadeInDown" data-wow-delay="0.4s">
           <a href="/contact">Contact</a>
         </li>
+        <% if(locals.user){%>
+        <li class="wow fadeInDown" data-wow-delay="0.4s">
+          <a href="/myprofile">My Profile</a>
+        </li>
+        <li class="wow fadeInDown" data-wow-delay="0.4s">
+          <a href="/myproperties">My Properties</a>
+        </li>
+        <%}%>
       </ul>
     </div>
     <!-- /.navbar-collapse -->
