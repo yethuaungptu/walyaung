@@ -170,6 +170,15 @@
                   <%}%>
                 </ul>
               </div>
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-primary btn-block"
+                  id="contactMe"
+                >
+                  Leave your some info, we will contact you
+                </button>
+              </div>
             </div>
           </div>
 
@@ -262,11 +271,76 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="largeModalLabel">Your Information</h4>
+          </div>
+          <form action="/contactMe" method="post">
+            <input
+              type="hidden"
+              name="agentId"
+              value="<%= property.agentId._id %>"
+            />
+            <input
+              type="hidden"
+              name="propertyId"
+              value="<%= property._id %>"
+            />
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control"
+                  id="name"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="contact">Contact</label>
+                <input
+                  type="text"
+                  name="contact"
+                  class="form-control"
+                  id="contact"
+                  placeholder="Email or Phone Number"
+                  required
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                id="subBtn"
+                type="submit"
+                class="btn btn-success waves-effect"
+              >
+                Submit
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger waves-effect"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
     <!-- Footer area-->
     <% include ./partial/footer %> <% include ./partial/script %>
     <script type="text/javascript" src="/assets/js/lightslider.min.js"></script>
     <script>
+      var $modal = $("#modal");
+      $("#contactMe").click(() => {
+        $modal.modal("show");
+      });
       $(document).ready(function () {
         $("#image-gallery").lightSlider({
           gallery: true,
