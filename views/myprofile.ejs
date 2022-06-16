@@ -154,6 +154,73 @@
               </div>
               <br />
             </form>
+            <br /><br />
+            <div
+              class="box-two clear"
+              style="padding: 10px 10px 10px 10px; margin: 10px"
+            >
+              <h4 class="text-center">Your Notifications</h4>
+              <div class="col-sm-6">
+                <h5 style="text-align: center">New</h5>
+                <% for(var i = 0; i < instractNews.length; i++){%>
+                <div
+                  class="card box-two"
+                  style="border-radius: 10px; padding-left: 10px"
+                >
+                  <div
+                    class="card-title"
+                    style="font-weight: bold; text-align: center; color: blue"
+                  >
+                    <h5><%= instractNews[i].propertyId.name %></h5>
+                  </div>
+                  <div class="card-body clear">
+                    <div class="col-sm-8">
+                      <p>Name : <%= instractNews[i].name %></p>
+                      <p>Contact : <%= instractNews[i].contact %></p>
+                    </div>
+                    <div class="col-sm-4">
+                      <button
+                        class="btn btn-primary btn-sm"
+                        onclick="changeNoti('<%= instractNews[i]._id %>','read')"
+                      >
+                        Make as read
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <%}%>
+              </div>
+              <div class="col-sm-6">
+                <h5 style="text-align: center">Read</h5>
+                <% for(var i = 0; i < instractReads.length; i++){%>
+                <div
+                  class="card box-two"
+                  style="border-radius: 10px; padding-left: 10px"
+                >
+                  <div
+                    class="card-title"
+                    style="font-weight: bold; text-align: center; color: blue"
+                  >
+                    <h5><%= instractReads[i].propertyId.name %></h5>
+                  </div>
+                  <div class="card-body clear">
+                    <div class="col-sm-8">
+                      <p>Name : <%= instractReads[i].name %></p>
+                      <p>Contact : <%= instractReads[i].contact %></p>
+                    </div>
+                    <div class="col-sm-4">
+                      <button
+                        class="btn btn-primary btn-sm"
+                        onclick="changeNoti('<%= instractReads[i]._id %>','delete')"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <%}%>
+              </div>
+            </div>
           </div>
         </div>
         <!-- end row -->
@@ -171,4 +238,20 @@
   </body>
 
   <script src="/javascripts/additional-methods.min.js"></script>
+  <script>
+    function changeNoti(id, type) {
+      const data = { id: id, type: type };
+      $.ajax("/changeNoti", {
+        method: "POST",
+        data: data,
+        success: function (result) {
+          if (result.status) {
+            location.reload();
+          } else {
+            alert("Something was wrong, please check your fields");
+          }
+        },
+      });
+    }
+  </script>
 </html>

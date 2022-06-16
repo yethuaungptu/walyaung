@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const upload = multer({ dest: "public/images/uploads/profile" });
 const Agents = require("../models/Agents");
 const Property = require("../models/Property");
+const Instract = require("../models/Instract");
 const location = require("./location");
 const property_upload = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -230,7 +231,29 @@ router.get("/logout", (req, res) => {
 router.get("/myprofile", auth, (req, res) => {
   Agents.findById(req.session.user.id, (err, rtn) => {
     if (err) throw err;
-    res.render("myprofile", { profile: rtn });
+    Instract.find({
+      agentId: req.session.user.id,
+      status: "new",
+      isDeleted: "0",
+    })
+      .populate("propertyId", "name")
+      .exec((err2, rtn2) => {
+        if (err2) throw err2;
+        Instract.find({
+          agentId: req.session.user.id,
+          status: "read",
+          isDeleted: "0",
+        })
+          .populate("propertyId", "name")
+          .exec((err3, rtn3) => {
+            if (err3) throw err3;
+            res.render("myprofile", {
+              profile: rtn,
+              instractNews: rtn2,
+              instractReads: rtn3,
+            });
+          });
+      });
   });
 });
 
@@ -266,6 +289,40 @@ router.get("/myproperties", auth, (req, res) => {
       if (err) throw err;
       res.render("myproperties", { properties: rtn });
     });
+});
+
+router.post("/contactMe", (req, res) => {
+  const instract = new Instract();
+  instract.name = req.body.name;
+  instract.contact = req.body.contact;
+  instract.agentId = req.body.agentId;
+  instract.propertyId = req.body.propertyId;
+  instract.save((err, rtn) => {
+    if (err) throw err;
+    res.redirect("/property_detail/" + req.body.propertyId);
+  });
+});
+
+router.post("/changeNoti", auth, (req, res) => {
+  let update = {};
+  if (req.body.type === "read") {
+    update.status = "read";
+  } else {
+    update.isDeleted = "1";
+  }
+  Instract.findByIdAndUpdate(req.body.id, { $set: update }, (err, rtn) => {
+    if (err) {
+      res.json({
+        message: "Internal server error",
+        status: false,
+      });
+    } else {
+      res.json({
+        message: "Update Success",
+        status: true,
+      });
+    }
+  });
 });
 
 module.exports = router;
