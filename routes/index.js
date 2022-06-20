@@ -170,7 +170,7 @@ router.get("/property_detail/:pid", (req, res) => {
 
 router.get("/properties", (req, res) => {
   const regions = JSON.stringify(location.getAllLocations());
-  let query = { isDelete: "0" };
+  let query = { isDeleted: "0" };
   let sorting = { inserted: -1 };
   let sortingType = "date";
   if (req.query) {
