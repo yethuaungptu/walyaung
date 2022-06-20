@@ -68,12 +68,12 @@
 
                           <div class="dealer-action pull-right">
                             <a
-                              href="/mypropertiesupdate/<%= properties[i]._id%>"
+                              href="/modify_property/<%= properties[i]._id%>"
                               class="button"
                               >Edit
                             </a>
                             <a
-                              href="/mypropertiesdelete/<%= properties[i]._id%>"
+                              href="/delete_property/<%= properties[i]._id%>"
                               class="button delete_user_car"
                               >Delete</a
                             >
@@ -82,6 +82,21 @@
                               class="button"
                               >View</a
                             >
+                            <% if(properties[i].soldout){%>
+                            <a
+                              href="/property_unsoldout/<%= properties[i]._id%>"
+                              class="button"
+                              disabled
+                              >UnSold Out</a
+                            >
+                            <%}else{%>
+                            <a
+                              href="/property_soldout/<%= properties[i]._id%>"
+                              class="button"
+                              disabled
+                              >Sold Out</a
+                            >
+                            <%}%>
                           </div>
                         </div>
                       </div>
@@ -98,7 +113,7 @@
                   class="panel panel-default sidebar-menu wow fadeInRight animated"
                 >
                   <div class="panel-heading">
-                    <h3 class="panel-title">Hello Kimaro</h3>
+                    <h3 class="panel-title">Hello <%= locals.user.name %></h3>
                   </div>
                   <div class="panel-body search-widget"></div>
                 </div>

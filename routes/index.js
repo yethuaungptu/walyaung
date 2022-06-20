@@ -7,7 +7,9 @@ const upload = multer({ dest: "public/images/uploads/profile" });
 const Agents = require("../models/Agents");
 const Property = require("../models/Property");
 const Instract = require("../models/Instract");
+const Report = require("../models/Report");
 const location = require("./location");
+const Ads = require("../models/Ads");
 const property_upload = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/images/propertyuploads");
@@ -152,7 +154,16 @@ router.get("/property_detail/:pid", (req, res) => {
         .limit(4)
         .exec((err2, rtn2) => {
           if (err2) throw err2;
-          res.render("property-detail", { property: rtn, smproperty: rtn2 });
+          Ads.findOne({ place: "pdetail" })
+            .select("adsUrl")
+            .exec((err3, rtn3) => {
+              if (err3) throw err3;
+              res.render("property-detail", {
+                property: rtn,
+                smproperty: rtn2,
+                ads: rtn3,
+              });
+            });
         });
     });
 });
@@ -207,17 +218,64 @@ router.get("/properties", (req, res) => {
       .limit(paging.perpage)
       .sort(sorting)
       .skip((paging.currpage - 1) * paging.perpage)
-      .select("_id name area price profile bathRoom bedRoom description")
+      .select(
+        "_id name area price profile bathRoom bedRoom description soldout"
+      )
       .exec((err, rtn) => {
         if (err) throw err;
-
-        res.render("property-list", {
-          properties: rtn,
-          regions: regions,
-          sortingType: sortingType,
-          paging: paging,
-        });
+        Ads.findOne({ place: "plist" })
+          .select("adsUrl")
+          .exec((err3, rtn3) => {
+            if (err3) throw err3;
+            res.render("property-list", {
+              properties: rtn,
+              regions: regions,
+              sortingType: sortingType,
+              paging: paging,
+              ads: rtn3,
+            });
+          });
       });
+  });
+});
+
+router.get("/modify_property/:id", auth, (req, res) => {
+  const regions = JSON.stringify(location.getAllLocations());
+  Property.findById(req.params.id, (err, rtn) => {
+    if (err) throw err;
+    res.render("property-update", { regions: regions, property: rtn });
+  });
+});
+
+router.post("/modify_property", auth, ppUpload, (req, res) => {
+  let update = {
+    name: req.body.name,
+    price: req.body.price,
+    phone: req.body.phone,
+    address: req.body.address,
+    description: req.body.description,
+    status: req.body.pstatus,
+    state: req.body.state,
+    city: req.body.city,
+    area: req.body.area,
+    bedRoom: req.body.bedRoom,
+    bathRoom: req.body.bathRoom,
+    updated: Date.now(),
+  };
+  if (req.body.subscription) update.subscription = req.body.subscription;
+  console.log(req.files);
+  if (req.files.profile)
+    update.profile = "/images/propertyuploads/" + req.files.profile[0].filename;
+  if (req.files.photo) {
+    let gallery = [];
+    for (let i = 0; i < req.files.photo.length; i++) {
+      gallery.push("/images/propertyuploads/" + req.files.photo[i].filename);
+    }
+    update.gallery = gallery;
+  }
+  Property.findByIdAndUpdate(req.body.id, { $set: update }, (err, rtn) => {
+    if (err) throw err;
+    res.redirect("/property_detail/" + req.body.id);
   });
 });
 
@@ -283,8 +341,8 @@ router.post("/myprofile", auth, upload.single("photo"), (req, res) => {
 });
 
 router.get("/myproperties", auth, (req, res) => {
-  Property.find({ agentId: req.session.user.id })
-    .select("_id name area price profile bathRoom bedRoom description")
+  Property.find({ isDeleted: "0", agentId: req.session.user.id })
+    .select("_id name area price profile bathRoom bedRoom description soldout")
     .exec((err, rtn) => {
       if (err) throw err;
       res.render("myproperties", { properties: rtn });
@@ -320,6 +378,75 @@ router.post("/changeNoti", auth, (req, res) => {
       res.json({
         message: "Update Success",
         status: true,
+      });
+    }
+  });
+});
+
+router.get("/delete_property/:id", auth, (req, res) => {
+  const update = {
+    isDeleted: "1",
+    updated: Date.now(),
+  };
+  Property.findOneAndUpdate(
+    { _id: req.params.id, agentId: req.session.user.id },
+    { $set: update },
+    (err, rtn) => {
+      if (err) throw err;
+      res.redirect("/myproperties");
+    }
+  );
+});
+
+router.get("/property_soldout/:id", auth, (req, res) => {
+  const update = {
+    soldout: true,
+    updated: Date.now(),
+  };
+  Property.findOneAndUpdate(
+    { _id: req.params.id, agentId: req.session.user.id },
+    { $set: update },
+    (err, rtn) => {
+      if (err) throw err;
+      res.redirect("/myproperties");
+    }
+  );
+});
+
+router.get("/property_unsoldout/:id", auth, (req, res) => {
+  const update = {
+    soldout: false,
+    updated: Date.now(),
+  };
+  Property.findOneAndUpdate(
+    { _id: req.params.id, agentId: req.session.user.id },
+    { $set: update },
+    (err, rtn) => {
+      if (err) throw err;
+      res.redirect("/myproperties");
+    }
+  );
+});
+
+router.get("/contact", (req, res) => {
+  res.render("contact");
+});
+
+router.post("/contact", (req, res) => {
+  const report = new Report();
+  report.name = req.body.name;
+  report.rtype = req.body.rtype;
+  report.email = req.body.email;
+  report.subject = req.body.subject;
+  report.message = req.body.message;
+  report.save((err, rtn) => {
+    if (err) {
+      res.json({
+        status: "error",
+      });
+    } else {
+      res.json({
+        status: "done",
       });
     }
   });

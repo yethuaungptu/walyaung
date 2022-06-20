@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../partialA/head %>
+  </head>
+  <body>
+    <div class="wrapper">
+      <% include ../partialA/main_header %>
+
+      <!-- Sidebar -->
+      <% include ../partialA/sidebar %>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <div class="content">
+          <div class="page-inner">
+            <div class="page-header">
+              <h4 class="page-title">Ads</h4>
+              <ul class="breadcrumbs">
+                <li class="nav-home">
+                  <a href="/admin">
+                    <i class="flaticon-home"></i>
+                  </a>
+                </li>
+                <li class="separator">
+                  <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/ads">Ads</a>
+                </li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title">Ads Management</h4>
+                  </div>
+                  <div class="card-body row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-md-4">
+                      <div class="card card-post card-round">
+                        <img
+                          class="card-img-top"
+                          src="<%= ads1 ? ads1.adsUrl : '/assets/img/ads.jpg' %>"
+                          alt="Card image cap"
+                        />
+                        <div class="card-body">
+                          <div class="separator-solid"></div>
+                          <p class="card-category text-info mb-1">
+                            <a>ads1</a>
+                          </p>
+                          <h3 class="card-title">
+                            <a> This Ads will be appear at property list </a>
+                          </h3>
+                          <% if(ads1){%>
+                          <button
+                            class="btn btn-warning btn-rounded btn-sm btn-block"
+                            onclick="updateAds('ads1','plist')"
+                          >
+                            Update
+                          </button>
+                          <%}else{%>
+                          <button
+                            class="btn btn-primary btn-rounded btn-sm btn-block"
+                            onclick="addAds('ads1','plist')"
+                          >
+                            Add
+                          </button>
+                          <%}%>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-md-4">
+                      <div class="card card-post card-round">
+                        <img
+                          class="card-img-top"
+                          src="<%= ads2 ? ads2.adsUrl : '/assets/img/ads.jpg' %>"
+                          alt="Card image cap"
+                        />
+                        <div class="card-body">
+                          <div class="separator-solid"></div>
+                          <p class="card-category text-info mb-1">
+                            <a>ads2</a>
+                          </p>
+                          <h3 class="card-title">
+                            <a> This Ads will be appear at property detail </a>
+                          </h3>
+                          <% if(ads2){%>
+                          <button
+                            class="btn btn-warning btn-rounded btn-sm btn-block"
+                            onclick="updateAds('ads2','pdetail')"
+                          >
+                            Update
+                          </button>
+                          <%}else{%>
+                          <button
+                            class="btn btn-primary btn-rounded btn-sm btn-block"
+                            onclick="addAds('ads2','pdetail')"
+                          >
+                            Add
+                          </button>
+                          <%}%>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="modal1" tabindex="-1" role="dialog">
+              <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel">Add Ads</h4>
+                  </div>
+                  <form
+                    action="/admin/addAds"
+                    method="post"
+                    enctype="multipart/form-data"
+                  >
+                    <input type="hidden" name="name" id="name" />
+                    <input type="hidden" name="place" id="place" />
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="photo">Image</label>
+                        <input
+                          type="file"
+                          name="photo"
+                          class="form-control"
+                          id="photo"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        id="subBtn"
+                        type="submit"
+                        class="btn btn-success waves-effect"
+                      >
+                        Submit
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-danger waves-effect"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="modal2" tabindex="-1" role="dialog">
+              <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title" id="largeModalLabel">Update Ads</h4>
+                  </div>
+                  <form
+                    action="/admin/updateAds"
+                    method="post"
+                    enctype="multipart/form-data"
+                  >
+                    <input type="hidden" name="uname" id="uname" />
+                    <input type="hidden" name="uplace" id="uplace" />
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <label for="uphoto">Image</label>
+                        <input
+                          type="file"
+                          name="uphoto"
+                          class="form-control"
+                          id="uphoto"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        id="subBtn"
+                        type="submit"
+                        class="btn btn-success waves-effect"
+                      >
+                        Submit
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-danger waves-effect"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% include ../partialA/footer %>
+      </div>
+    </div>
+    <!--   Core JS Files   -->
+    <% include ../partialA/script %>
+    <!-- Atlantis DEMO methods, don't include it in your project! -->
+    <!-- <script src="/adassets/js/setting-demo.js"></script> -->
+    <!-- <script src="/adassets/js/demo.js"></script> -->
+  </body>
+  <script>
+    var $modal1 = $("#modal1");
+    var $modal2 = $("#modal2");
+    function addAds(name, place) {
+      $("#name").val(name);
+      $("#place").val(place);
+      $modal1.modal("show");
+    }
+    function updateAds(name, place) {
+      $("#uname").val(name);
+      $("#uplace").val(place);
+      $modal2.modal("show");
+    }
+  </script>
+</html>

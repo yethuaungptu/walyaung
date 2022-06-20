@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../partialA/head %>
+  </head>
+  <body>
+    <div class="wrapper">
+      <% include ../partialA/main_header %>
+
+      <!-- Sidebar -->
+      <% include ../partialA/sidebar %>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <div class="content">
+          <div class="page-inner">
+            <div class="page-header">
+              <h4 class="page-title">Property List</h4>
+              <ul class="breadcrumbs">
+                <li class="nav-home">
+                  <a href="/admin">
+                    <i class="flaticon-home"></i>
+                  </a>
+                </li>
+                <li class="separator">
+                  <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/propertylist">Property List</a>
+                </li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title">All property list</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table
+                        id="basic-datatables"
+                        class="display table table-striped table-hover"
+                      >
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Agent</th>
+                            <th>Price</th>
+                            <th>State</th>
+                            <th>City</th>
+                            <th>Sold Out</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                            <th>Name</th>
+                            <th>Agent</th>
+                            <th>Price</th>
+                            <th>State</th>
+                            <th>City</th>
+                            <th>Sold Out</th>
+                            <th>Action</th>
+                          </tr>
+                        </tfoot>
+                        <tbody>
+                          <% for(var i = 0; i < properties.length; i++){%>
+                          <tr>
+                            <td><%= properties[i].name %></td>
+                            <td><%= properties[i].agentId.name %></td>
+                            <td><%= properties[i].price %></td>
+                            <td><%= properties[i].state %></td>
+                            <td><%= properties[i].city %></td>
+                            <td><%= properties[i].soldout ? 'Yes' :'No'; %></td>
+                            <td>
+                              <% if(properties[i].isDeleted == '0'){%>
+                              <button
+                                class="btn btn-primary"
+                                onclick="updatePro('<%= properties[i]._id %>','1')"
+                              >
+                                Make as only Admin view
+                              </button>
+                              <%}else{%>
+                              <button
+                                class="btn btn-warning"
+                                onclick="updatePro('<%= properties[i]._id %>','0')"
+                              >
+                                Make as public view
+                              </button>
+                              <%}%>
+                            </td>
+                          </tr>
+                          <%}%>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% include ../partialA/footer %>
+      </div>
+    </div>
+    <!--   Core JS Files   -->
+    <% include ../partialA/script %>
+    <!-- Atlantis DEMO methods, don't include it in your project! -->
+    <!-- <script src="/adassets/js/setting-demo.js"></script> -->
+    <!-- <script src="/adassets/js/demo.js"></script> -->
+    <script>
+      $(document).ready(function () {
+        $("#basic-datatables").DataTable({});
+      });
+      function updatePro(id, type) {
+        $.ajax("/admin/updatePro", {
+          method: "POST",
+          data: { id: id, type: type },
+          success: function (result) {
+            if (result.status == "done") {
+              alert("Property is changed!");
+              location.reload();
+            } else {
+              alert("Something was wrong, Property not change!");
+            }
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

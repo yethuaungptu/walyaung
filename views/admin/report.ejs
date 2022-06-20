@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../partialA/head %>
+  </head>
+  <body>
+    <div class="wrapper">
+      <% include ../partialA/main_header %>
+
+      <!-- Sidebar -->
+      <% include ../partialA/sidebar %>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <div class="content">
+          <div class="page-inner">
+            <div class="page-header">
+              <h4 class="page-title">Report List</h4>
+              <ul class="breadcrumbs">
+                <li class="nav-home">
+                  <a href="/admin">
+                    <i class="flaticon-home"></i>
+                  </a>
+                </li>
+                <li class="separator">
+                  <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/report">Report</a>
+                </li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title">All report</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table
+                        id="basic-datatables"
+                        class="display table table-striped table-hover"
+                      >
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tfoot>
+                          <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Type</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </tfoot>
+                        <tbody>
+                          <% for(var i = 0; i < reports.length; i++){%>
+                          <tr>
+                            <td><%= reports[i].name %></td>
+                            <td><%= reports[i].email %></td>
+                            <td><%= reports[i].rtype %></td>
+                            <td><%= reports[i].status %></td>
+                            <td>
+                              <button
+                                class="btn btn-primary"
+                                onclick="seeMore('<%= reports[i]._id %>')"
+                              >
+                                See More
+                              </button>
+                            </td>
+                          </tr>
+                          <%}%>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-md" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                      <h4 class="modal-title" id="largeModalLabel">
+                        Report Detail
+                      </h4>
+                    </div>
+                    <div class="modal-body">
+                      <h4>Name : <span id="name"></span></h4>
+                      <h4>Email : <span id="email"></span></h4>
+                      <h4>Subject : <span id="subject"></span></h4>
+                      <h4>Report Type : <span id="rtype"></span></h4>
+                      <h4>Message : <span id="message"></span></h4>
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-danger waves-effect"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% include ../partialA/footer %>
+      </div>
+    </div>
+    <!--   Core JS Files   -->
+    <% include ../partialA/script %>
+    <!-- Atlantis DEMO methods, don't include it in your project! -->
+    <!-- <script src="/adassets/js/setting-demo.js"></script> -->
+    <!-- <script src="/adassets/js/demo.js"></script> -->
+    <script>
+      $(document).ready(function () {
+        $("#basic-datatables").DataTable({});
+      });
+      var $modal = $("#modal");
+      function seeMore(id) {
+        $.ajax("/admin/reportSeeMore", {
+          method: "POST",
+          data: { id: id },
+          success: function (result) {
+            if (result.status == "done") {
+              $("#name").html(result.report.name);
+              $("#email").html(result.report.email);
+              $("#subject").html(result.report.subject);
+              $("#rtype").html(result.report.rtype);
+              $("#message").html(result.report.message);
+              $modal.modal("show");
+            } else {
+              alert("Something was wrong, Account level not change!");
+            }
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

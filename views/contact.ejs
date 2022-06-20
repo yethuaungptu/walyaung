@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <% include ./partial/head %>
+
+    <link rel="stylesheet" href="/assets/css/lightslider.min.css" />
+  </head>
+  <body>
+    <div id="preloader">
+      <div id="status">&nbsp;</div>
+    </div>
+    <!-- Body content -->
+
+    <% include ./partial/navbar %>
+    <!-- End of nav bar -->
+
+    <div class="page-head">
+      <div class="container">
+        <div class="row">
+          <div class="page-head-content">
+            <h1 class="page-title">Contact</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="content-area recent-property padding-top-40"
+      style="background-color: #fff"
+    >
+      <div class="container">
+        <div class="col-md-1"></div>
+        <div class="col-md-9">
+          <div class="" id="contact1">
+            <div class="row">
+              <div class="col-sm-4">
+                <h3><i class="fa fa-map-marker"></i> Address</h3>
+                <p>
+                  1/15 Yal Bu San Street <br />Beside Pyay-Aung Lan Road
+                  <br />Pyay <br />Bago
+                  <br />
+                  <strong>Myanmar</strong>
+                </p>
+              </div>
+              <!-- /.col-sm-4 -->
+              <div class="col-sm-4">
+                <h3><i class="fa fa-phone"></i> Call center</h3>
+                <p class="text-muted">
+                  This number is toll free if calling from Our team otherwise we
+                  advise you to use the electronic form of communication.
+                </p>
+                <p><strong>+95 977 214 6299</strong></p>
+              </div>
+              <!-- /.col-sm-4 -->
+              <div class="col-sm-4">
+                <h3><i class="fa fa-envelope"></i> E support</h3>
+                <p class="text-muted">
+                  Please feel free to write an email to us or to use our
+                  electronic ticketing system.
+                </p>
+                <ul>
+                  <li>
+                    <strong
+                      ><a href="mailto:shwemyay.mm@gmail.com"
+                        >shwemyay.mm@gmail.com</a
+                      ></strong
+                    >
+                  </li>
+                </ul>
+              </div>
+              <!-- /.col-sm-4 -->
+            </div>
+            <!-- /.row -->
+
+            <hr />
+            <h2>Contact / Report form</h2>
+            <form>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="firstname">Name</label>
+                    <input
+                      type="text"
+                      name="firstname"
+                      class="form-control"
+                      id="firstname"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="lastname">Report Type</label>
+                    <select name="type" id="rtype" class="form-control">
+                      <option value="info">Info</option>
+                      <option value="report">Report</option>
+                      <option value="feedback">Feed Back</option>
+                      <option value="upgrade">Agent Account Upgrad</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input
+                      type="text"
+                      name="email"
+                      class="form-control"
+                      id="email"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input
+                      type="text"
+                      name="subject"
+                      class="form-control"
+                      id="subject"
+                    />
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      class="form-control"
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="col-sm-12 text-center">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="submitContact()"
+                  >
+                    <i class="fa fa-envelope-o"></i> Send message
+                  </button>
+                </div>
+              </div>
+              <!-- /.row -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="largeModalLabel">Thank You</h4>
+          </div>
+          <div class="modal-body">
+            <p>
+              Thank you for your contacting me, we will reply your information
+              soon. Have a good day
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger waves-effect"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer area-->
+    <% include ./partial/footer %> <% include ./partial/script %>
+  </body>
+  <script>
+    var $modal = $("#modal");
+    function submitContact(id, type) {
+      const data = {
+        name: $("#firstname").val(),
+        rtype: $("#rtype").val(),
+        email: $("#email").val(),
+        subject: $("#subject").val(),
+        message: $("#message").val(),
+      };
+      $.ajax("/contact", {
+        method: "POST",
+        data: data,
+        success: function (result) {
+          if (result.status == "done") {
+            $modal.modal("show");
+            $("#firstname").val("");
+            $("#rtype").val("");
+            $("#email").val("");
+            $("#subject").val("");
+            $("#message").val("");
+          } else {
+            alert("Something was wrong, please check your fields");
+          }
+        },
+      });
+    }
+  </script>
+</html>

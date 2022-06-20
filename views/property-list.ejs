@@ -119,7 +119,13 @@
                         properties[i].bedRoom %>)|
                         <img src="/assets/img/icon/shawer.png" />(<%=
                         properties[i].bathRoom %>)|
+                      <% if(properties[i].soldout){ %>
+                        <b><span class="proerty-price pull-right">
+                          Sold Out</span
+                        ></b>
+                      <%}%>
                       </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -220,79 +226,18 @@
                   </form>
                 </div>
               </div>
-
-              <!-- <div
+              <div
                 class="panel panel-default sidebar-menu wow fadeInRight animated"
               >
                 <div class="panel-heading">
-                  <h3 class="panel-title">Recommended</h3>
+                  <h3 class="panel-title">Our Sponser</h3>
                 </div>
                 <div class="panel-body recent-property-widget">
-                  <ul>
-                    <li>
-                      <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                        <a href="single.html"
-                          ><img src="/assets/img/demo/small-property-2.jpg"
-                        /></a>
-                        <span class="property-seeker">
-                          <b class="b-1">A</b>
-                          <b class="b-2">S</b>
-                        </span>
-                      </div>
-                      <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                        <h6><a href="single.html">Super nice villa </a></h6>
-                        <span class="property-price">3000000$</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                        <a href="single.html"
-                          ><img src="/assets/img/demo/small-property-1.jpg"
-                        /></a>
-                        <span class="property-seeker">
-                          <b class="b-1">A</b>
-                          <b class="b-2">S</b>
-                        </span>
-                      </div>
-                      <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                        <h6><a href="single.html">Super nice villa </a></h6>
-                        <span class="property-price">3000000$</span>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                        <a href="single.html"
-                          ><img src="/assets/img/demo/small-property-3.jpg"
-                        /></a>
-                        <span class="property-seeker">
-                          <b class="b-1">A</b>
-                          <b class="b-2">S</b>
-                        </span>
-                      </div>
-                      <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                        <h6><a href="single.html">Super nice villa </a></h6>
-                        <span class="property-price">3000000$</span>
-                      </div>
-                    </li>
-
-                    <li>
-                      <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                        <a href="single.html"
-                          ><img src="/assets/img/demo/small-property-2.jpg"
-                        /></a>
-                        <span class="property-seeker">
-                          <b class="b-1">A</b>
-                          <b class="b-2">S</b>
-                        </span>
-                      </div>
-                      <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                        <h6><a href="single.html">Super nice villa </a></h6>
-                        <span class="property-price">3000000$</span>
-                      </div>
-                    </li>
-                  </ul>
+                  <img
+                    src="<%= ads.adsUrl? ads.adsUrl : '/assets/img/ads.jpg' %>"
+                  />
                 </div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>

@@ -260,10 +260,12 @@
                 class="panel panel-default sidebar-menu wow fadeInRight animated"
               >
                 <div class="panel-heading">
-                  <h3 class="panel-title">Ads her</h3>
+                  <h3 class="panel-title">Our Sponser</h3>
                 </div>
                 <div class="panel-body recent-property-widget">
-                  <img src="/assets/img/ads.jpg" />
+                  <img
+                    src="<%= ads.adsUrl? ads.adsUrl : '/assets/img/ads.jpg' %>"
+                  />
                 </div>
               </div>
             </aside>
@@ -311,6 +313,10 @@
                   required
                 />
               </div>
+              <p>
+                Thank You for your interesting our property.I will contact
+                soon.Have a good day!!
+              </p>
             </div>
             <div class="modal-footer">
               <button

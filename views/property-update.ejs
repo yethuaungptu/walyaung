@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+  <!--<![endif]-->
+  <head>
+    <% include ./partial/head %>
+    <link rel="stylesheet" href="/assets/css/wizard.css" />
+  </head>
+  <body>
+    <div id="preloader">
+      <div id="status">&nbsp;</div>
+    </div>
+    <!-- Body content -->
+
+    <% include ./partial/navbar %>
+    <!-- End of nav bar -->
+
+    <div class="page-head">
+      <div class="container">
+        <div class="row">
+          <div class="page-head-content">
+            <h1 class="page-title">Submit new property</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-area submit-property" style="background-color: #fcfcfc">
+      &nbsp;
+      <div class="container">
+        <div class="clearfix">
+          <div class="wizard-container">
+            <div class="wizard-card ct-wizard-orange" id="wizardProperty">
+              <form
+                action="/modify_property"
+                method="post"
+                enctype="multipart/form-data"
+              >
+              <input type="hidden" name="id" value="<%= property._id %>">
+                <div class="wizard-header">
+                  <h3>
+                    <b>Modify</b> YOUR PROPERTY <br />
+                    <small
+                      >Your will see at prperty list after submit your
+                      property</small
+                    >
+                  </h3>
+                </div>
+
+                <ul>
+                  <li><a href="#step1" data-toggle="tab">Step 1 </a></li>
+                  <li><a href="#step2" data-toggle="tab">Step 2 </a></li>
+                  <li><a href="#step3" data-toggle="tab">Step 3 </a></li>
+                  <li><a href="#step4" data-toggle="tab">Finished </a></li>
+                </ul>
+
+                <div class="tab-content">
+                  <div class="tab-pane" id="step1">
+                    <div class="row p-b-15">
+                      <h4 class="info-text">
+                        Let's start with the basic information (with validation)
+                      </h4>
+                      <div class="col-sm-4 col-sm-offset-1">
+                        <div class="picture-container">
+                          <div class="picture">
+                            <img
+                              src="<%= property.profile %>"
+                              class="picture-src"
+                              id="wizardPicturePreview"
+                              title=""
+                            />
+                            <input
+                              type="file"
+                              id="wizard-picture"
+                              name="profile"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label>Property name <small>(required)</small></label>
+                          <input
+                            name="name"
+                            type="text"
+                            class="form-control"
+                            required
+                            value="<%= property.name %>"
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label
+                            >Property price <small>(required)</small></label
+                          >
+                          <input
+                            name="price"
+                            type="number"
+                            class="form-control"
+                            required
+                            value="<%= property.price %>"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label>Telephone</label>
+                          <input
+                            name="phone"
+                            type="text"
+                            class="form-control"
+                            value="<%= property.phone %>"
+                            id="phone"
+                            required
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label>Address</label>
+                          <input
+                            name="address"
+                            type="text"
+                            required
+                            class="form-control"
+                            value="<%= property.address %>"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  End step 1 -->
+
+                  <div class="tab-pane" id="step2">
+                    <h4 class="info-text">
+                      How much your Property is Beautiful ?
+                    </h4>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="col-sm-12">
+                          <div class="form-group">
+                            <label>Property Description :</label>
+                            <textarea
+                              name="description"
+                              class="form-control"
+                              required
+                            ><%= property.description %></textarea>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-12">
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                            <label>Property State :</label>
+                            <select
+                              id="state"
+                              class="selectpicker"
+                              data-live-search="true"
+                              data-live-search-style="begins"
+                              title="Select your state"
+                              name="state"
+                            ></select>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                            <label>Property City :</label>
+                            <select
+                              id="district"
+                              class="selectpicker"
+                              data-live-search="true"
+                              data-live-search-style="begins"
+                              title="Select your city"
+                              name="city"
+                            ></select>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                            <label>Property Statue :</label>
+                            <select
+                              id="pstatus"
+                              class="selectpicker show-tick form-control"
+                              onchange="stsCh()"
+                              name="pstatus"
+                              required
+                            >
+                              <option>-Status-</option>
+                              <option value="rent" <%= (property.status == 'rent')? 'selected':'' %>>Rent</option>
+                              <option value="sale" <%= (property.status == 'sale')? 'selected':'' %>>Sale</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="form-group hide" id="sub_id">
+                            <label for="subscription"
+                              >Subscription<small>(for rent)</small></label
+                            >
+                            <input
+                              type="number"
+                              name="subscription"
+                              id="subscription"
+                              class="form-control"
+                              value="<%= property.subscription ? property.subscription: '' %>"
+                              disabled
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <br />
+                    </div>
+                  </div>
+                  <!-- End step 2 -->
+
+                  <div class="tab-pane" id="step3">
+                    <h4 class="info-text">Give us some images and data ?</h4>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="property-images">Chose Images :</label>
+                          <input
+                            class="form-control"
+                            type="file"
+                            id="property-images"
+                            name="photo"
+                            multiple
+                          />
+                          <p class="help-block">
+                            Select multipel images for your property .
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label for="area">Area</label>
+                          <input
+                            class="form-control"
+                            name="area"
+                            type="text"
+                            value="<%= property.area %>"
+                            required
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="area">Bed Room</label>
+                          <input
+                            class="form-control"
+                            value="<%= property.bedRoom %>"
+                            name="bedRoom"
+                            type="number"
+                            required
+                          />
+                        </div>
+
+                        <div class="form-group">
+                          <label for="area">Bath Room</label>
+                          <input
+                            class="form-control"
+                            value="<%= property.bathRoom %>"
+                            name="bathRoom"
+                            type="number"
+                            required
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  End step 3 -->
+
+                  <div class="tab-pane" id="step4">
+                    <h4 class="info-text">Finished and submit</h4>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="">
+                          <p>
+                            <label><strong>Terms and Conditions</strong></label>
+                            By accessing or using Shwe Myay services, such as
+                            posting your property advertisement with your
+                            personal information on our website you agree to the
+                            collection, use and disclosure of your personal
+                            information in the legal proper manner
+                          </p>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="accept" checked required />
+                              <strong>Accept termes and conditions.</strong>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--  End step 4 -->
+                </div>
+
+                <div class="wizard-footer">
+                  <div class="pull-right">
+                    <input
+                      type="button"
+                      class="btn btn-next btn-primary"
+                      name="next"
+                      value="Next"
+                    />
+                    <input
+                      type="submit"
+                      class="btn btn-finish btn-primary"
+                      name="finish"
+                      value="Finish"
+                    />
+                  </div>
+
+                  <div class="pull-left">
+                    <input
+                      type="button"
+                      class="btn btn-previous btn-default"
+                      name="previous"
+                      value="Previous"
+                    />
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </form>
+            </div>
+            <!-- End submit form -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer area-->
+    <% include ./partial/footer %> <% include ./partial/script %>
+    <script
+      src="/assets/js/jquery.bootstrap.wizard.js"
+      type="text/javascript"
+    ></script>
+    <script src="/assets/js/jquery.validate.min.js"></script>
+    <script src="/assets/js/wizard.js"></script>
+  </body>
+  <script>
+    function changeCity(){
+      console.log('call')
+      $("#state").val("<%= property.state %>").change();
+      var cities = $.grep( regions, function( n, i ) {
+            return n.state == "<%= property.state %>";
+          });
+      addOptions('district', cities);
+    }
+    setTimeout(changeCity,1000);
+    setTimeout(()=>{$("#district").val("<%= property.city %>").change()},1500);
+    const regions = (<%- regions %>);
+    addOptions('state', regions);
+    
+      $("#state").on('change', function(){
+          var cities = $.grep( regions, function( n, i ) {
+            return n.state == $("#state").val();
+          });
+          addOptions('district', cities);
+      });
+
+      function addOptions(id, arr){
+          $("#"+id).children().remove();
+
+          for(var idx in arr){
+              // if(idx == 0) $("#"+id).append(new Option('Select '+id, ''));
+              if(idx == 0 || arr[idx][id] != arr[idx-1][id]){
+                  $("#"+id).append(new Option(arr[idx][id], arr[idx][id]));
+              }
+          }
+          $('#district').selectpicker('refresh');
+      }
+      function stsCh(){
+        console.log($('#pstatus').val())
+        if($('#pstatus').val() == 'rent'){
+          $('#sub_id').removeClass("hide");
+          $('#subscription').removeAttr("disabled");
+        }else{
+          $('#sub_id').addClass("hide");
+          $('#subscription').attr("disabled", 'disabled');
+        }
+      }
+  </script>
+  <script src="/javascripts/additional-methods.min.js"></script>
+</html>
