@@ -43,10 +43,10 @@
             >
               <div class="profiel-header">
                 <h3>
-                  <b>Update</b> YOUR PROFILE <br />
-                  <small
+                  <b>သင်၏ကိုယ်ရေးအချက်အလက်များပြင်ရန်</b><br />
+                  <!-- <small
                     >This information will let us know more about you.</small
-                  >
+                  > -->
                 </h3>
                 <hr />
               </div>
@@ -63,13 +63,13 @@
                       />
                       <input type="file" name="photo" id="wizard-picture" />
                     </div>
-                    <h6>Choose Picture</h6>
+                    <h6>Profile ပုံထည့်ရန်</h6>
                   </div>
                 </div>
 
                 <div class="col-sm-3 padding-top-25">
                   <div class="form-group">
-                    <label>Name <small>(required)</small></label>
+                    <label>အမည်</label> <small>(required)</small></label>
                     <input
                       name="name"
                       type="text"
@@ -79,7 +79,7 @@
                     />
                   </div>
                   <div class="form-group">
-                    <label>Role <small>(required)</small></label>
+                    <label>ကြော်ငြာတင်သူ <small>(required)</small></label>
                     <input
                       name="role"
                       type="text"
@@ -89,7 +89,7 @@
                     />
                   </div>
                   <div class="form-group">
-                    <label>Email <small>(Cann't modify)</small></label>
+                    <label>အီးမေးလ် <small>(ပြင်ခွင့်မရှိပါ)</small></label>
                     <input
                       name="email"
                       type="email"
@@ -102,7 +102,7 @@
                 </div>
                 <div class="col-sm-3 padding-top-25">
                   <div class="form-group">
-                    <label>Phone <small>(required)</small></label>
+                    <label>ဖုန်းနံပါတ်<small>(required)</small></label>
                     <input
                       name="phone"
                       type="tel"
@@ -113,7 +113,7 @@
                     />
                   </div>
                   <div class="form-group">
-                    <label>Address <small>(required)</small></label>
+                    <label>လိပ်စာ <small>(required)</small></label>
                     <input
                       name="address"
                       type="text"
@@ -123,7 +123,7 @@
                     />
                   </div>
                   <div class="form-group">
-                    <label>Password :</label>
+                    <label>လျှို့ဝှက်နံပါတ် :</label>
                     <input
                       type="password"
                       name="password"
@@ -133,7 +133,7 @@
                 </div>
                 <div class="col-sm-6 padding-top-15">
                   <div class="form-group">
-                    <label>Description <small>(required)</small></label>
+                    <label>ကြော်ငြာအကြောင်းအရာ <small>(required)</small></label>
                     <input
                       type="text"
                       name="desc"
@@ -149,7 +149,7 @@
                   type="submit"
                   class="btn btn-finish btn-primary"
                   name="finish"
-                  value="Update"
+                  value="အတည်ပြုမည်"
                 />
               </div>
               <br />
@@ -159,9 +159,9 @@
               class="box-two clear"
               style="padding: 10px 10px 10px 10px; margin: 10px"
             >
-              <h4 class="text-center">Your Notifications</h4>
+              <h4 class="text-center"‌>သင့်ထံအသိပေးချက်များ</h4>
               <div class="col-sm-6">
-                <h5 style="text-align: center">New</h5>
+                <h5 style="text-align: center">အသိပေးချက်အသစ်များ</h5>
                 <% for(var i = 0; i < instractNews.length; i++){%>
                 <div
                   class="card box-two"
@@ -175,15 +175,15 @@
                   </div>
                   <div class="card-body clear">
                     <div class="col-sm-8">
-                      <p>Name : <%= instractNews[i].name %></p>
-                      <p>Contact : <%= instractNews[i].contact %></p>
+                      <p>အမည် : <%= instractNews[i].name %></p>
+                      <p>ဆက်သွယ်ရန် : <%= instractNews[i].contact %></p>
                     </div>
                     <div class="col-sm-4">
                       <button
                         class="btn btn-primary btn-sm"
                         onclick="changeNoti('<%= instractNews[i]._id %>','read')"
                       >
-                        Make as read
+                        ဖတ်ရန်
                       </button>
                     </div>
                   </div>
@@ -191,7 +191,7 @@
                 <%}%>
               </div>
               <div class="col-sm-6">
-                <h5 style="text-align: center">Read</h5>
+                <h5 style="text-align: center">ဖတ်ပြီး</h5>
                 <% for(var i = 0; i < instractReads.length; i++){%>
                 <div
                   class="card box-two"
@@ -205,15 +205,15 @@
                   </div>
                   <div class="card-body clear">
                     <div class="col-sm-8">
-                      <p>Name : <%= instractReads[i].name %></p>
-                      <p>Contact : <%= instractReads[i].contact %></p>
+                      <p>အမည် : <%= instractReads[i].name %></p>
+                      <p>ဆက်သွယ်ရန် : <%= instractReads[i].contact %></p>
                     </div>
                     <div class="col-sm-4">
                       <button
                         class="btn btn-primary btn-sm"
                         onclick="changeNoti('<%= instractReads[i]._id %>','delete')"
                       >
-                        Delete
+                        ဖျက်မည်
                       </button>
                     </div>
                   </div>

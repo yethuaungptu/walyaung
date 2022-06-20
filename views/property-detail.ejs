@@ -23,7 +23,7 @@
       <div class="container">
         <div class="row">
           <div class="page-head-content">
-            <h1 class="page-title">Property Detail</h1>
+            <h1 class="page-title">အိမ်ခြံမြေအသေးစိတ်အချက်အလက်များ</h1>
           </div>
         </div>
       </div>
@@ -67,7 +67,7 @@
               <div class="single-property-header">
                 <h1 class="property-title pull-left"><%= property.name %></h1>
                 <span class="property-price pull-right"
-                  ><%= property.price %> MMK</span
+                  ><%= property.price %> သိန်း</span
                 >
               </div>
 
@@ -77,7 +77,7 @@
                     <img src="/assets/img/icon/sale-orange.png" />
                   </span>
                   <span class="property-info-entry">
-                    <span class="property-info-label">Status</span>
+                    <span class="property-info-label">ရောင်းရန်/ငှါးရန်</span>
                     <span class="property-info-value"
                       >For <%= property.status %></span
                     >
@@ -89,7 +89,7 @@
                     <img src="/assets/img/icon/room-orange.png" />
                   </span>
                   <span class="property-info-entry">
-                    <span class="property-info-label">Area</span>
+                    <span class="property-info-label">အကျယ်အဝန်း</span>
                     <span class="property-info-value"
                       ><%= property.area %></span
                     >
@@ -101,7 +101,7 @@
                     <img src="/assets/img/icon/bed-orange.png" />
                   </span>
                   <span class="property-info-entry">
-                    <span class="property-info-label">Bedrooms</span>
+                    <span class="property-info-label">အိပ်ခန်း</span>
                     <span class="property-info-value"
                       ><%= property.bedRoom %></span
                     >
@@ -113,7 +113,7 @@
                     <img src="/assets/img/icon/shawer-orange.png" />
                   </span>
                   <span class="property-info-entry">
-                    <span class="property-info-label">Bathrooms</span>
+                    <span class="property-info-label">ရေချိုးခန်း</span>
                     <span class="property-info-value"
                       ><%= property.bathRoom %></span
                     >
@@ -123,7 +123,7 @@
               <!-- .property-meta -->
 
               <div class="section">
-                <h4 class="s-property-title">Description</h4>
+                <h4 class="s-property-title">အသေးစိတ်ဖော်ပြချက်</h4>
                 <div class="s-property-content">
                   <p><%= property.description %></p>
                 </div>
@@ -131,12 +131,12 @@
               <!-- End description area  -->
 
               <div class="section additional-details">
-                <h4 class="s-property-title">Additional Details</h4>
+                <h4 class="s-property-title">ဖြည့်စွက်ဖော်ပြချက်</h4>
 
                 <ul class="additional-details-list clearfix">
                   <li>
                     <span class="col-xs-6 col-sm-4 col-md-4 add-d-title"
-                      >State</span
+                      >ပြည်နယ်/တိုင်းဒေသကြီး</span
                     >
                     <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"
                       ><%= property.state %></span
@@ -144,7 +144,7 @@
                   </li>
                   <li>
                     <span class="col-xs-6 col-sm-4 col-md-4 add-d-title"
-                      >City</span
+                      >မြို့နယ်</span
                     >
                     <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"
                       ><%= property.city %></span
@@ -152,7 +152,7 @@
                   </li>
                   <li>
                     <span class="col-xs-6 col-sm-4 col-md-4 add-d-title"
-                      >Address</span
+                      >လိပ်စာ</span
                     >
                     <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"
                       ><%= property.address %></span
@@ -161,10 +161,10 @@
                   <% if(property.status == 'rent'){%>
                   <li>
                     <span class="col-xs-6 col-sm-4 col-md-4 add-d-title"
-                      >Subscription</span
+                      >စပေါ်ငွေပေးသွင်းရန်ပမာဏ</span
                     >
                     <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"
-                      ><%= property.subscription %> MMK</span
+                      ><%= property.subscription %>သိန်း</span
                     >
                   </li>
                   <%}%>
@@ -176,7 +176,7 @@
                   class="btn btn-primary btn-block"
                   id="contactMe"
                 >
-                  Leave your some info, we will contact you
+                  ဝယ်မည်/ငှါးမည်
                 </button>
               </div>
             </div>
@@ -247,7 +247,7 @@
                           </a>
                         </h6>
                         <span class="property-price"
-                          ><%= smproperty[i].price%> MMK</span
+                          ><%= smproperty[i].price%> သိန်း</span
                         >
                       </div>
                     </li>
@@ -260,7 +260,7 @@
                 class="panel panel-default sidebar-menu wow fadeInRight animated"
               >
                 <div class="panel-heading">
-                  <h3 class="panel-title">Our Sponser</h3>
+                  <h3 class="panel-title">ကြော်ငြာများ</h3>
                 </div>
                 <div class="panel-body recent-property-widget">
                   <img
@@ -277,7 +277,7 @@
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title" id="largeModalLabel">Your Information</h4>
+            <h4 class="modal-title" id="largeModalLabel">ဆက်သွယ်ရန်</h4>
           </div>
           <form action="/contactMe" method="post">
             <input
@@ -292,7 +292,7 @@
             />
             <div class="modal-body">
               <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">အမည်</label>
                 <input
                   type="text"
                   name="name"
@@ -303,7 +303,7 @@
                 />
               </div>
               <div class="form-group">
-                <label for="contact">Contact</label>
+                <label for="contact">အီးမေးလ်/ဖုန်းနံပါတ်</label>
                 <input
                   type="text"
                   name="contact"
@@ -314,8 +314,9 @@
                 />
               </div>
               <p>
-                Thank You for your interesting our property.I will contact
-                soon.Have a good day!!
+                ဒီအိမ်ခြံမြေကိုစိတ်ဝင်စားပါသည်။
+                ဒီအိမ်ခြံမြေနှင့်ပတ်သက်သောအသေးစိတ်အချက်အလက်များအားပေးပို့စေလိုပါသည်။
+                ကျေးဇူးတင်ပါသည်။
               </p>
             </div>
             <div class="modal-footer">
@@ -324,14 +325,14 @@
                 type="submit"
                 class="btn btn-success waves-effect"
               >
-                Submit
+                ပေးပို့မည်
               </button>
               <button
                 type="button"
                 class="btn btn-danger waves-effect"
                 data-dismiss="modal"
               >
-                Close
+                ပိတ်မည်
               </button>
             </div>
           </form>

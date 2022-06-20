@@ -22,7 +22,7 @@
       <div class="container">
         <div class="row">
           <div class="page-head-content">
-            <h1 class="page-title">Submit new property</h1>
+            <h1 class="page-title">အိမ်ခြံမြေအချက်အလက်များပြင်ရန်</h1>
           </div>
         </div>
       </div>
@@ -41,27 +41,27 @@
               <input type="hidden" name="id" value="<%= property._id %>">
                 <div class="wizard-header">
                   <h3>
-                    <b>Modify</b> YOUR PROPERTY <br />
-                    <small
+                    <b>အိမ်ခြံမြေအချက်အလက်များပြင်ပါ</b><br />
+                    <!-- <small
                       >Your will see at prperty list after submit your
                       property</small
-                    >
+                    > -->
                   </h3>
                 </div>
 
                 <ul>
-                  <li><a href="#step1" data-toggle="tab">Step 1 </a></li>
-                  <li><a href="#step2" data-toggle="tab">Step 2 </a></li>
-                  <li><a href="#step3" data-toggle="tab">Step 3 </a></li>
-                  <li><a href="#step4" data-toggle="tab">Finished </a></li>
+                  <li><a href="#step1" data-toggle="tab">အဆင့် ၁</a></li>
+                  <li><a href="#step2" data-toggle="tab">အဆင့် ၂</a></li>
+                  <li><a href="#step3" data-toggle="tab">အဆင့် ၃</a></li>
+                  <li><a href="#step4" data-toggle="tab">အဆင့် ၄</a></li>
                 </ul>
 
                 <div class="tab-content">
                   <div class="tab-pane" id="step1">
                     <div class="row p-b-15">
-                      <h4 class="info-text">
+                      <!-- <h4 class="info-text">
                         Let's start with the basic information (with validation)
-                      </h4>
+                      </h4> -->
                       <div class="col-sm-4 col-sm-offset-1">
                         <div class="picture-container">
                           <div class="picture">
@@ -81,7 +81,7 @@
                       </div>
                       <div class="col-sm-6">
                         <div class="form-group">
-                          <label>Property name <small>(required)</small></label>
+                          <label>ကြော်ငြာခေါင်းစဥ်<small>(required)</small></label>
                           <input
                             name="name"
                             type="text"
@@ -93,7 +93,7 @@
 
                         <div class="form-group">
                           <label
-                            >Property price <small>(required)</small></label
+                            >စျေးနှုန်း<small>(required)</small></label
                           >
                           <input
                             name="price"
@@ -104,7 +104,7 @@
                           />
                         </div>
                         <div class="form-group">
-                          <label>Telephone</label>
+                          <label>ဖုန်းနံပါတ်</label>
                           <input
                             name="phone"
                             type="text"
@@ -115,7 +115,7 @@
                           />
                         </div>
                         <div class="form-group">
-                          <label>Address</label>
+                          <label>လိပ်စာ</label>
                           <input
                             name="address"
                             type="text"
@@ -130,14 +130,14 @@
                   <!--  End step 1 -->
 
                   <div class="tab-pane" id="step2">
-                    <h4 class="info-text">
+                    <!-- <h4 class="info-text">
                       How much your Property is Beautiful ?
-                    </h4>
+                    </h4> -->
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="col-sm-12">
                           <div class="form-group">
-                            <label>Property Description :</label>
+                            <label>အသေးစိတ်ဖော်ပြချက်:</label>
                             <textarea
                               name="description"
                               class="form-control"
@@ -150,7 +150,8 @@
                       <div class="col-sm-12">
                         <div class="col-sm-3">
                           <div class="form-group">
-                            <label>Property State :</label>
+                              <!-- class="selectpicker" -->
+                              <label>ပြည်နယ်နှင့်တိုင်းဒေသကြီးများ :</label>
                             <select
                               id="state"
                               class="selectpicker"
@@ -163,7 +164,7 @@
                         </div>
                         <div class="col-sm-3">
                           <div class="form-group">
-                            <label>Property City :</label>
+                            <label> မြို့နယ်အားလုံး:</label>
                             <select
                               id="district"
                               class="selectpicker"
@@ -176,7 +177,7 @@
                         </div>
                         <div class="col-sm-3">
                           <div class="form-group">
-                            <label>Property Statue :</label>
+                            <label>ရောင်းရန်/ငှါးရန်:</label>
                             <select
                               id="pstatus"
                               class="selectpicker show-tick form-control"
@@ -185,15 +186,15 @@
                               required
                             >
                               <option>-Status-</option>
-                              <option value="rent" <%= (property.status == 'rent')? 'selected':'' %>>Rent</option>
-                              <option value="sale" <%= (property.status == 'sale')? 'selected':'' %>>Sale</option>
+                              <option value="rent" <%= (property.status == 'rent')? 'selected':'' %>>ငှားမည်</option>
+                              <option value="sale" <%= (property.status == 'sale')? 'selected':'' %>>ရောင်းမည်</option>
                             </select>
                           </div>
                         </div>
                         <div class="col-sm-3">
                           <div class="form-group hide" id="sub_id">
                             <label for="subscription"
-                              >Subscription<small>(for rent)</small></label
+                              >စပေါ်ငွေပေးရမည့်ပမာဏ<small>(for rent)</small></label
                             >
                             <input
                               type="number"
@@ -212,11 +213,11 @@
                   <!-- End step 2 -->
 
                   <div class="tab-pane" id="step3">
-                    <h4 class="info-text">Give us some images and data ?</h4>
+                    <!-- <h4 class="info-text">Give us some images and data ?</h4> -->
                     <div class="row">
                       <div class="col-sm-6">
                         <div class="form-group">
-                          <label for="property-images">Chose Images :</label>
+                          <label for="property-images">ပုံထည့်ရန် :</label>
                           <input
                             class="form-control"
                             type="file"
@@ -225,13 +226,13 @@
                             multiple
                           />
                           <p class="help-block">
-                            Select multipel images for your property .
+                          အိမ်ခြံမြေပုံများထည့်ပါ.
                           </p>
                         </div>
                       </div>
                       <div class="col-sm-6">
                         <div class="form-group">
-                          <label for="area">Area</label>
+                          <label for="area">အကျယ်အဝန်း</label>
                           <input
                             class="form-control"
                             name="area"
@@ -242,7 +243,7 @@
                         </div>
 
                         <div class="form-group">
-                          <label for="area">Bed Room</label>
+                          <label for="area">အိပ်ခန်း</label>
                           <input
                             class="form-control"
                             value="<%= property.bedRoom %>"
@@ -253,7 +254,7 @@
                         </div>
 
                         <div class="form-group">
-                          <label for="area">Bath Room</label>
+                          <label for="area">ရေချိုးခန်း</label>
                           <input
                             class="form-control"
                             value="<%= property.bathRoom %>"
@@ -268,22 +269,19 @@
                   <!--  End step 3 -->
 
                   <div class="tab-pane" id="step4">
-                    <h4 class="info-text">Finished and submit</h4>
+                    <h4 class="info-text">ပို့စ်တင်ခြင်းပြီးဆုံးပါပြီ</h4>
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="">
                           <p>
-                            <label><strong>Terms and Conditions</strong></label>
-                            By accessing or using Shwe Myay services, such as
-                            posting your property advertisement with your
-                            personal information on our website you agree to the
-                            collection, use and disclosure of your personal
-                            information in the legal proper manner
+                            <label><strong>စည်းကမ်းသတ်မှတ်ချက်များ</strong></label>
+                          ShweMyay ဝန်ဆောင်မှုကို အသုံးပြုခြင်းဖြင့် ကျွန်ပ်တို့၏ Website တွင် သင်၏ကိုယ်ရေးကိုယ်တာအချက်အလက်များဖြင့်
+                          အိမ်ခြံမြေပို့စ်တင်ခြင်းကို တရားဉပဒေနှင့်အညီ သင့်လျော်သောနည်းလမ်းဖြင့် ထုတ်ဖော်ပြသထားခြင်းကို သဘောတူပါသည်။
                           </p>
                           <div class="checkbox">
                             <label>
                               <input type="checkbox" name="accept" checked required />
-                              <strong>Accept termes and conditions.</strong>
+                              <strong>စည်းကမ်းသတ်မှတ်ချက်များကိုသဘောတူပါသည်။</strong>
                             </label>
                           </div>
                         </div>
@@ -299,13 +297,13 @@
                       type="button"
                       class="btn btn-next btn-primary"
                       name="next"
-                      value="Next"
+                      value="နောက်သို့"
                     />
                     <input
                       type="submit"
                       class="btn btn-finish btn-primary"
                       name="finish"
-                      value="Finish"
+                      value="ပို့စ်တင်ပါ"
                     />
                   </div>
 
@@ -314,7 +312,7 @@
                       type="button"
                       class="btn btn-previous btn-default"
                       name="previous"
-                      value="Previous"
+                      value="ရှေ့သို့"
                     />
                   </div>
                   <div class="clearfix"></div>

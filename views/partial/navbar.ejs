@@ -25,7 +25,7 @@
           onclick="location.href = '/logout'"
           data-wow-delay="0.4s"
         >
-          Logout
+          ထွက်မည်
         </button>
         <%}else{%>
         <button
@@ -33,7 +33,7 @@
           onclick="location.href = '/register'"
           data-wow-delay="0.4s"
         >
-          Login
+          ဝင်မည်
         </button>
         <%}%>
         <button
@@ -41,26 +41,26 @@
           onclick="location.href = '/submit_property'"
           data-wow-delay="0.5s"
         >
-          Submit
+          ပို့စ်တင်မည်
         </button>
       </div>
       <ul class="main-nav nav navbar-nav navbar-right">
         <li class="wow fadeInDown" data-wow-delay="0.1s">
-          <a class="" href="/">Home</a>
+          <a class="" href="/">ပင်မစာမျက်နှာ</a>
         </li>
         <li class="wow fadeInDown" data-wow-delay="0.1s">
-          <a class="" href="/properties">Properties</a>
+          <a class="" href="/properties">အိမ်ခြံမြေများ</a>
         </li>
 
         <li class="wow fadeInDown" data-wow-delay="0.4s">
-          <a href="/contact">Contact</a>
+          <a href="/contact">ဆက်သွယ်ရန်</a>
         </li>
         <% if(locals.user){%>
         <li class="wow fadeInDown" data-wow-delay="0.4s">
-          <a href="/myprofile">My Profile</a>
+          <a href="/myprofile">ကျွန်ုပ်၏စာမျက်နှာ</a>
         </li>
         <li class="wow fadeInDown" data-wow-delay="0.4s">
-          <a href="/myproperties">My Properties</a>
+          <a href="/myproperties">ကျွန်ုပ်၏အိမ်ခြံမြေများ</a>
         </li>
         <%}%>
       </ul>

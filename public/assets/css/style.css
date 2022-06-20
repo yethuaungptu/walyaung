@@ -10,7 +10,7 @@ body {
     margin:0;
     font-size:14px;
     line-height: 28px;
-    color: #777; 
+    color: #000; 
     background: #fff; 
     position: relative;
 }
@@ -53,7 +53,8 @@ p{
     line-height: 1.6180em;
 }
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {
-    color: #999999;
+    /* color: #999999; */
+    color:#000;
     font-weight: 300;
     line-height: 1;
 }
@@ -98,7 +99,8 @@ input {
     border: none;
     width: 100%;
     height: inherit;
-    color: #333333;
+    /* color: #333333; */
+    color:#000;
     font-size: 16px;
     padding: 5px 15px;
     border-radius: 3px;

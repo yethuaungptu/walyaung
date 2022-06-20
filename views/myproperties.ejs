@@ -22,7 +22,7 @@
       <div class="container">
         <div class="row">
           <div class="page-head-content">
-            <h1 class="page-title">My Properties List</h1>
+            <h1 class="page-title">ကျွန်ပ်တင်ထားသောအိမ်ခြံမြေပိုစ့်များ</h1>
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@
                           ><b> Area :</b> <%= properties[i].area%>
                         </span>
                         <span class="proerty-price pull-right">
-                          <%= properties[i].price%> MMK</span
+                          <%= properties[i].price%> သိန်း</span
                         >
                         <p style="display: none">
                           <%= properties[i].description%>
@@ -70,31 +70,31 @@
                             <a
                               href="/modify_property/<%= properties[i]._id%>"
                               class="button"
-                              >Edit
+                              >ပြင်မည်
                             </a>
                             <a
                               href="/delete_property/<%= properties[i]._id%>"
                               class="button delete_user_car"
-                              >Delete</a
+                              >ဖျက်မည်</a
                             >
                             <a
                               href="/property_detail/<%= properties[i]._id%>"
                               class="button"
-                              >View</a
+                              >ကြည့်မည်</a
                             >
                             <% if(properties[i].soldout){%>
                             <a
                               href="/property_unsoldout/<%= properties[i]._id%>"
                               class="button"
                               disabled
-                              >UnSold Out</a
+                              >မရောင်းရသေး</a
                             >
                             <%}else{%>
                             <a
                               href="/property_soldout/<%= properties[i]._id%>"
                               class="button"
                               disabled
-                              >Sold Out</a
+                              >ရောင်းပြီး</a
                             >
                             <%}%>
                           </div>
