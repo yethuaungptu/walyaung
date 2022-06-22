@@ -146,9 +146,7 @@
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title" id="largeModalLabel">
-                  Crop Profile
-                </h4>
+                <h4 class="modal-title" id="largeModalLabel">Crop Profile</h4>
               </div>
               <div class="modal-body">
                 <div class="img-container">
@@ -278,54 +276,76 @@
         $("#phone").valid();
         $("#role").valid();
         $("#desc").valid();
-        if (canvas) {
-          canvas.toBlob(function (blob) {
-            var formData = new FormData(document.getElementById("regfrm"));
-            formData.append("photo", blob);
-            $.ajax("/register", {
-              method: "POST",
-              data: formData,
-              processData: false,
-              contentType: false,
-              success: function (result) {
-                console.log(result);
-                if (result.status) {
-                  location.href = "/register";
-                } else {
-                  alert("Something was wrong, please check your fields");
-                }
-              },
-              error: function (err) {
-                console.log(err);
-              },
-              complete: function () {
-                console.log("complate");
-              },
-            });
-          });
-        } else {
-          var formData = new FormData(document.getElementById("regfrm"));
-          $.ajax("/register", {
-            method: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (result) {
-              console.log(result);
-              if (result.status) {
-                location.href = "/register";
+        $.ajax("/agentduplicate", {
+          method: "POST",
+          data: { email: $("#email").val() },
+          success: function (res) {
+            if (res.status == "error") {
+              alert("Something was wrong");
+            } else {
+              if (res.status) {
+                alert("Email is duplicated");
+                $("#email").val("");
+                $("#email").focus();
               } else {
-                alert("Something was wrong, please check your fields");
+                if (canvas) {
+                  canvas.toBlob(function (blob) {
+                    var formData = new FormData(
+                      document.getElementById("regfrm")
+                    );
+                    formData.append("photo", blob);
+                    $.ajax("/register", {
+                      method: "POST",
+                      data: formData,
+                      processData: false,
+                      contentType: false,
+                      success: function (result) {
+                        console.log(result);
+                        if (result.status) {
+                          location.href = "/register";
+                        } else {
+                          alert(
+                            "Something was wrong, please check your fields"
+                          );
+                        }
+                      },
+                      error: function (err) {
+                        console.log(err);
+                      },
+                      complete: function () {
+                        console.log("complate");
+                      },
+                    });
+                  });
+                } else {
+                  var formData = new FormData(
+                    document.getElementById("regfrm")
+                  );
+                  $.ajax("/register", {
+                    method: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                      console.log(result);
+                      if (result.status) {
+                        location.href = "/register";
+                      } else {
+                        alert("Something was wrong, please check your fields");
+                      }
+                    },
+                    error: function (err) {
+                      console.log(err);
+                    },
+                    complete: function () {
+                      console.log("complate");
+                    },
+                  });
+                }
               }
-            },
-            error: function (err) {
-              console.log(err);
-            },
-            complete: function () {
-              console.log("complate");
-            },
-          });
-        }
+            }
+          },
+        });
       });
     </script>
   </body>

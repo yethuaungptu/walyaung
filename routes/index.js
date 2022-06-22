@@ -78,6 +78,22 @@ router.post("/register", upload.single("photo"), (req, res) => {
   });
 });
 
+router.post("/agentduplicate", (req, res) => {
+  Agents.findOne({ email: req.body.email }, (err, rtn) => {
+    if (err) {
+      console.log("error", err);
+      res.json({
+        status: false,
+      });
+    } else {
+      console.log(rtn);
+      res.json({
+        status: rtn ? true : false,
+      });
+    }
+  });
+});
+
 router.post("/signin", (req, res) => {
   Agents.findOne({ email: req.body.email }, (err, rtn) => {
     if (err) throw err;
@@ -182,8 +198,11 @@ router.get("/properties", (req, res) => {
     }
     if (req.query.state) query.state = req.query.state;
     if (req.query.district) query.district = req.query.district;
-    if (req.query.status && req.query.status != "-Status-")
-      query.status = req.query.status;
+    if (req.query.status) {
+      if (req.query.status == "rent" || req.query.status == "sale")
+        query.status = req.query.status;
+    }
+
     if (req.query.sortingType) {
       if (req.query.sortingType == "date") {
         sortingType = "date";
