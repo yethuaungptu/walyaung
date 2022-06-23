@@ -140,6 +140,7 @@ router.post("/submit_property", auth, ppUpload, (req, res) => {
   property.area = req.body.area;
   property.bedRoom = req.body.bedRoom;
   property.bathRoom = req.body.bathRoom;
+  property.isDeleted = "1";
   let gallery = [];
   for (let i = 0; i < req.files.photo.length; i++) {
     gallery.push("/images/propertyuploads/" + req.files.photo[i].filename);
