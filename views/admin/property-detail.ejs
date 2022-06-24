@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../partialA/head %>
+  </head>
+  <body>
+    <div class="wrapper">
+      <% include ../partialA/main_header %>
+
+      <!-- Sidebar -->
+      <% include ../partialA/sidebar %>
+      <!-- End Sidebar -->
+
+      <div class="main-panel">
+        <div class="content">
+          <div class="page-inner">
+            <div class="page-header">
+              <h4 class="page-title">Property Detail</h4>
+              <ul class="breadcrumbs">
+                <li class="nav-home">
+                  <a href="/admin">
+                    <i class="flaticon-home"></i>
+                  </a>
+                </li>
+                <li class="separator">
+                  <i class="flaticon-right-arrow"></i>
+                </li>
+                <li class="nav-item">
+                  <a href="/admin/propertylist">Property List</a>
+                </li>
+              </ul>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4 class="card-title">Property Detail</h4>
+                  </div>
+                  <div class="card-body">
+                    <h2 class="text-center"><%= property.name %></h2>
+                    <div class="row">
+                      <div class="col-lg-8 col-sm-12">
+                        <div class="card">
+                          <div class="card-title text-center text-primary m-2">
+                            Property Information
+                          </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="avatar avatar-xxl mx-auto">
+                                <img
+                                  src="<%= property.profile %>"
+                                  class="avatar-img rounded-circle"
+                                  alt=""
+                                />
+                              </div>
+                            </div>
+                            <div class="row">
+                              <p><%= property.description %></p>
+                            </div>
+                            <div class="row border m-2">
+                              <div class="col-sm-4 bg-primary text-white p-1">
+                                Price
+                              </div>
+                              <div class="col-sm-8 p-1">
+                                <%= property.price %> သိန်း
+                              </div>
+                            </div>
+                            <div class="row border m-2">
+                              <div class="col-sm-4 bg-primary text-white p-1">
+                                Address
+                              </div>
+                              <div class="col-sm-8 p-1">
+                                <%= property.address %>
+                              </div>
+                            </div>
+                            <div class="row border m-2">
+                              <div class="col-sm-4 bg-primary text-white p-1">
+                                Phone
+                              </div>
+                              <div class="col-sm-8 p-1">
+                                <%= property.phone %>
+                              </div>
+                            </div>
+                            <div class="row border m-2">
+                              <div class="col-sm-4 bg-primary text-white p-1">
+                                State
+                              </div>
+                              <div class="col-sm-8 p-1">
+                                <%= property.state %>
+                              </div>
+                            </div>
+                            <div class="row border m-2">
+                              <div class="col-sm-4 bg-primary text-white p-1">
+                                City
+                              </div>
+                              <div class="col-sm-8 p-1">
+                                <%= property.city %>
+                              </div>
+                            </div>
+                            <div class="row border m-2">
+                              <div class="col-sm-4 bg-warning text-white p-1">
+                                Area
+                              </div>
+                              <div class="col-sm-8 p-1">
+                                <%= property.area %>
+                              </div>
+                            </div>
+                            <div class="row border m-2">
+                              <div class="col-sm-4 bg-warning text-white p-1">
+                                BathRoom
+                              </div>
+                              <div class="col-sm-8 p-1">
+                                <%= property.bathRoom %>
+                              </div>
+                            </div>
+                            <div class="row border m-2">
+                              <div class="col-sm-4 bg-warning text-white p-1">
+                                BedRoom
+                              </div>
+                              <div class="col-sm-8 p-1">
+                                <%= property.bedRoom %>
+                              </div>
+                            </div>
+                            <div class="row border m-2">
+                              <div class="col-sm-4 bg-warning text-white p-1">
+                                Sale / Rent
+                              </div>
+                              <div class="col-sm-8 p-1">
+                                <%= property.status %>
+                              </div>
+                            </div>
+                            <% if(property.status == 'rent'){%>
+                            <div class="row border m-2">
+                              <div class="col-sm-4 bg-warning text-white p-1">
+                                Subscription
+                              </div>
+                              <div class="col-sm-8 p-1">
+                                <%= property.subscription %>
+                              </div>
+                            </div>
+                            <%}%>
+                            <div class="row border m-2">
+                              <div class="col-sm-4 bg-success text-white p-1">
+                                Sold out
+                              </div>
+                              <div class="col-sm-8 p-1">
+                                <%= property.soldout ? 'Yes' : 'No' %>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <% for(var i = 0; i < property.gallery.length;
+                              i++){%>
+                              <div class="col-lg-4">
+                                <img
+                                  src="<%= property.gallery[i] %>"
+                                  class="img-fluid"
+                                  alt=""
+                                />
+                              </div>
+                              <%}%>
+                            </div>
+                            <div class="row mt-3">
+                              <% if(property.isDeleted == "1"){%>
+                              <button
+                                onclick="updatePro('<%= property._id %>','0')"
+                                class="btn btn-block btn-primary"
+                              >
+                                Make as public view
+                              </button>
+                              <%}else{%>
+                              <button
+                                onclick="updatePro('<%= property._id %>','1')"
+                                class="btn btn-block btn-warning"
+                              >
+                                Make as admin view
+                              </button>
+                              <%}%>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-sm-12">
+                        <div class="card">
+                          <div class="card-title text-center text-success">
+                            Agent Information
+                          </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="avatar avatar-xxl mx-auto">
+                                <img
+                                  src="<%= property.agentId.imgUrl %>"
+                                  class="avatar-img rounded-circle"
+                                  alt=""
+                                />
+                              </div>
+                            </div>
+                            <div class="row">
+                              <h4 class="mx-auto">
+                                <%= property.agentId.name %>
+                              </h4>
+                            </div>
+                            <div class="row">
+                              <h5 class="mx-auto">
+                                <%= property.agentId.phone %>
+                              </h5>
+                            </div>
+                            <div class="row">
+                              <h5 class="mx-auto">
+                                <%= property.agentId.email %>
+                              </h5>
+                            </div>
+                            <div class="row">
+                              <h5 class="mx-auto">
+                                <%= property.agentId.address %>
+                              </h5>
+                            </div>
+                            <div
+                              class="row <%= property.agentId.type == 'free' ? 'border border-default':'border border-success' %>"
+                            >
+                              <h5 class="mx-auto">
+                                <%= property.agentId.type %> account
+                              </h5>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% include ../partialA/footer %>
+      </div>
+    </div>
+    <!--   Core JS Files   -->
+    <% include ../partialA/script %>
+    <!-- Atlantis DEMO methods, don't include it in your project! -->
+    <!-- <script src="/adassets/js/setting-demo.js"></script> -->
+    <!-- <script src="/adassets/js/demo.js"></script> -->
+    <script>
+      function updatePro(id, type) {
+        $.ajax("/admin/updatePro", {
+          method: "POST",
+          data: { id: id, type: type },
+          success: function (result) {
+            if (result.status == "done") {
+              alert("Property is changed!");
+              location.reload();
+            } else {
+              alert("Something was wrong, Property not change!");
+            }
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -74,21 +74,11 @@
                             <td><%= properties[i].city %></td>
                             <td><%= properties[i].soldout ? 'Yes' :'No'; %></td>
                             <td>
-                              <% if(properties[i].isDeleted == '0'){%>
-                              <button
+                              <a
+                                href="/admin/propertydetail/<%= properties[i]._id %>"
                                 class="btn btn-primary"
-                                onclick="updatePro('<%= properties[i]._id %>','1')"
+                                >More Detail</a
                               >
-                                Make as only Admin view
-                              </button>
-                              <%}else{%>
-                              <button
-                                class="btn btn-warning"
-                                onclick="updatePro('<%= properties[i]._id %>','0')"
-                              >
-                                Make as public view
-                              </button>
-                              <%}%>
                             </td>
                           </tr>
                           <%}%>
@@ -113,20 +103,6 @@
       $(document).ready(function () {
         $("#basic-datatables").DataTable({});
       });
-      function updatePro(id, type) {
-        $.ajax("/admin/updatePro", {
-          method: "POST",
-          data: { id: id, type: type },
-          success: function (result) {
-            if (result.status == "done") {
-              alert("Property is changed!");
-              location.reload();
-            } else {
-              alert("Something was wrong, Property not change!");
-            }
-          },
-        });
-      }
     </script>
   </body>
 </html>

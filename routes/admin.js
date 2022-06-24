@@ -152,6 +152,15 @@ router.get("/propertylist", auth, (req, res) => {
     });
 });
 
+router.get("/propertydetail/:id", auth, (req, res) => {
+  Property.findById(req.params.id)
+    .populate("agentId")
+    .exec((err, rtn) => {
+      if (err) throw err;
+      res.render("admin/property-detail", { property: rtn });
+    });
+});
+
 router.post("/updatePro", auth, (req, res) => {
   let update = {
     updated: Date.now(),
